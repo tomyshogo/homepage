@@ -1,0 +1,92 @@
+---
+// import Hamburger from "./Hamburgur.astro";
+// import Navigation from "./Navigation.astro";
+import { Image } from "astro:assets";
+import hamburger from "../assets/hamburger.png";
+---
+
+<header>
+  <div class="navigation">
+    <ul id="menu-list" :class="{'is-active': isActive}">
+      <li id="top"><a href="/">Home</a></li>
+      <li id="about"><a href="/about/">About</a></li>
+      <li id="blog"><a href="/works/">Works</a></li>
+    </ul>
+
+    <button id="menu-button">
+      <Image id="burger" src={hamburger} alt="メニューアイコン" />
+    </button>
+  </div>
+</header>
+<style scoped>
+  li {
+    list-style: none;
+  }
+
+  @media (min-width: 1070px) {
+    #menu-list {
+      visibility: hidden; /* 非アクティブ時は見えなくする */
+      opacity: 0; /* 完全に透明 */
+      position: fixed;
+      bottom: 15%;
+      right: -100%; /* 初期状態では画面外に配置 */
+      transition:
+        right 0.5s,
+        opacity 0.5s,
+        visibility 0s 0.5s; /* 右からスライドインと透明度の変化をアニメーション */
+    }
+
+    #menu-list.is-active {
+      visibility: visible; /* アクティブ時に見えるように */
+      opacity: 1; /* 完全に不透明 */
+      right: 50px; /* 右端に配置 */
+      transition:
+        right 0.5s,
+        opacity 0.5s; /* 右からスライドインと透明度の変化をアニメーション */
+    }
+  }
+  @media (max-width: 1070px) {
+    #menu-list {
+      bottom: auto; /* 下端からの位置をリセット */
+      top: 0; /* 上端に配置 */
+      right: 0; /* 右端に配置 */
+      left: 0; /* 左端に配置 */
+      display: flex; /* 横並びにする */
+      justify-content: space-around; /* 均等に配置 */
+      transition:
+        top 3.5s,
+        opacity 3.5s,
+        visibility 0s 0.2s; /* 上からスライドインと透明度の変化をアニメーション */
+      margin-bottom: 10px;
+    }
+
+    #menu-button {
+      display: none; /* デスクトップサイズではハンバーガーメニューを非表示 */
+    }
+  }
+
+  #top,
+  #works,
+  #about,
+  #contact {
+    margin-bottom: 10px;
+  }
+  #burger {
+    width: 56px;
+    height: 56px;
+    padding: 0%;
+  }
+
+  #menu-button {
+    border: none;
+    background-color: transparent;
+    position: fixed; /* ボタンを画面に固定 */
+    right: 20px; /* 右端から20pxの位置 */
+    bottom: 20px; /* 下端から20pxの位置 */
+    border: none;
+  }
+</style>
+
+<script>
+  import "../scripts/menu.js";
+</script>

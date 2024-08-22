@@ -1,0 +1,315 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { Image } from "astro:assets";
+import selfie from "../assets/IMG_4381.jpg";
+
+import "../styles/global.css";
+import "../styles/about.css";
+const pageTitle = "tomy | about";
+
+const identity = {
+  firstName: "tomy",
+  country: "Japan",
+  city: "Chiba where next to Tokyo",
+  occupation: "Software Engineer",
+  hobbies: ["Programming", "Reading", "Writing"],
+  languages: ["Japanese", "English"],
+};
+
+const sns = [
+  {
+    name: "GitHub",
+    url: "https://github.com/tomyshogo",
+    icon: "https://cdn.svgporn.com/logos/github-icon.svg",
+  },
+];
+
+const frontend = [
+  {
+    name: "JavaScript",
+    level: "Advanced",
+    icon: "https://cdn.svgporn.com/logos/javascript.svg",
+  },
+  {
+    name: "React",
+    level: "Begginer",
+    icon: "https://cdn.svgporn.com/logos/react.svg",
+  },
+  {
+    name: "Vue",
+    level: "Begginer",
+    icon: "https://cdn.svgporn.com/logos/vue.svg",
+  },
+];
+const backend = [
+  {
+    name: "C#",
+    level: "Advanced",
+    icon: "https://cdn.svgporn.com/logos/c-sharp.svg",
+  },
+
+  {
+    name: "Python",
+    level: "Intermediate",
+    icon: "https://cdn.svgporn.com/logos/python.svg",
+  },
+
+  {
+    name: "Java",
+    level: "Intermediate",
+    icon: "https://cdn.svgporn.com/logos/java.svg",
+  },
+  {
+    name: "TypeScript",
+    level: "Begginer",
+    icon: "https://cdn.svgporn.com/logos/typescript-icon.svg",
+  },
+  {
+    name: "Node",
+    level: "Begginer",
+    icon: "https://cdn.svgporn.com/logos/nodejs.svg",
+  },
+];
+
+const mobile = [
+  {
+    name: "Swift",
+    level: "Intermediate",
+    icon: "https://cdn.svgporn.com/logos/swift.svg",
+  },
+];
+
+const infra = [
+  {
+    name: "AWS",
+    level: "Advanced",
+    icon: "https://cdn.svgporn.com/logos/aws.svg",
+  },
+  {
+    name: "Firebase",
+    level: "Intermediate",
+    icon: "https://cdn.svgporn.com/logos/firebase.svg",
+  },
+];
+const db = [
+  {
+    name: "Oracle",
+    level: "Advanced",
+    icon: "https://cdn.svgporn.com/logos/oracle.svg",
+  },
+  {
+    name: "PostgreSQL",
+    level: "Intermediate",
+    icon: "https://cdn.svgporn.com/logos/postgresql.svg",
+  },
+  {
+    name: "SQLite",
+    level: "Begginer",
+    icon: "https://cdn.svgporn.com/logos/sqlite.svg",
+  },
+];
+const game = [
+  {
+    name: "Unity",
+    level: "Intermediate",
+    icon: "https://cdn.svgporn.com/logos/unity.svg",
+  },
+];
+---
+
+<Layout title={pageTitle}>
+  <div class="profile">
+    <Image
+      id="selfie"
+      class="profile-img"
+      src={selfie}
+      alt="メニューアイコン"
+    />
+    <h2>冨谷 彰吾</h2>
+    <div class="description">
+      千葉県在住の26歳。新卒から未経験でSES企業に入社。<p></p>
+      現在はフリーランスエンジニアとして活動中。
+    </div>
+    <div class="sns">
+      <ul class="sns-icon-ul">
+        {
+          sns.map((s) => (
+            <li class="sns">
+              <a href={s.url} target="_blank" rel="noopener noreferrer">
+                {s.name} - <img src={s.icon} alt={s.name} class="sns-icon" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <hr />
+
+  <div class="container">
+    <img
+      width="800"
+      src="https://github-profile-trophy.vercel.app/?username=tomyshogo&column=8&theme=gruvbox&no-frame=true"
+    />
+
+    <img
+      width="800"
+      src="https://github-readme-stats.vercel.app/api?username=tomyshogo&show_icons=true&theme=dracula"
+    />
+
+    <img
+      width="800"
+      src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=tomyshogo&theme=dracula"
+    />
+
+    <img
+      width="800"
+      src="https://github-readme-stats.vercel.app/api/top-langs/?username=tomyshogo&langs_count=5&hide=html,cmake&theme=dracula"
+    />
+
+    <details>
+      <summary>✔ My Snake Graph</summary>
+      <div>
+        <img
+          src="https://raw.githubusercontent.com/tomyshogo/tomyshogo/output/github-contribution-grid-snake.svg?palette=github-dark"
+        />
+      </div>
+    </details>
+
+    <details>
+      <summary>✔ Interested in</summary>
+      <ul>
+        <li>Iot Product</li>
+        <li>Game Development</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>✔ My Streak</summary>
+      <div>
+        <img
+          src="https://github-readme-streak-stats.herokuapp.com/?user=tomyshogo"
+        />
+      </div>
+    </details>
+
+    <details>
+      <summary>✔ My Wakatime</summary>
+      <div>
+        <img
+          src="https://github-readme-stats.vercel.app/api/wakatime?username=tomyshogo&theme=dracula"
+        />
+      </div>
+    </details>
+
+    <hr />
+    <h2>Skills</h2>
+    <h3>Frontend</h3>
+    <ul>
+      {
+        frontend.map((skill) => (
+          <li class={skill.level}>
+            {skill.name} -
+            <img src={skill.icon} alt={skill.name} class="lang-icon" />
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Backend</h3>
+    <ul>
+      {
+        backend.map((skill) => (
+          <li class={skill.level}>
+            {skill.name} -
+            <img src={skill.icon} alt={skill.name} class="lang-icon" />
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Mobile</h3>
+    <ul>
+      {
+        mobile.map((skill) => (
+          <li class={skill.level}>
+            {skill.name} -
+            <img src={skill.icon} alt={skill.name} class="lang-icon" />
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Infra</h3>
+    <ul>
+      {
+        infra.map((skill) => (
+          <li class={skill.level}>
+            {skill.name} -
+            <img src={skill.icon} alt={skill.name} class="lang-icon" />
+          </li>
+        ))
+      }
+    </ul>
+    <h3>DB</h3>
+    <ul>
+      {
+        db.map((skill) => (
+          <li class={skill.level}>
+            {skill.name} -
+            <img src={skill.icon} alt={skill.name} class="lang-icon" />
+          </li>
+        ))
+      }
+    </ul>
+    <h3>Game</h3>
+    <ul>
+      {
+        game.map((skill) => (
+          <li class={skill.level}>
+            {skill.name} -
+            <img src={skill.icon} alt={skill.name} class="lang-icon" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <style>
+    .profile {
+      text-align: center; /* プロフィールを真ん中に寄せる */
+    }
+    .skill {
+      color: blue;
+      font-weight: bold;
+    }
+    .sns {
+      color: green;
+      font-weight: bold;
+    }
+    .sns-icon-ul {
+      display: grid;
+      grid-gap: 1rem;
+    }
+    .profile-img {
+      width: 30%;
+      height: auto; /* 縦横比を維持 */
+      border-radius: 50%; /* 画像を丸める */
+    }
+    .lang-icon {
+      width: 20px;
+      height: 20px;
+    }
+    .Advanced {
+      color: red;
+    }
+    .Intermediate {
+      color: blue;
+    }
+    .Begginer {
+      color: green;
+    }
+    .sns-icon {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</Layout>

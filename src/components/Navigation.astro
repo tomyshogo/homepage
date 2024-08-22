@@ -1,0 +1,65 @@
+<div class="navigation">
+    <ul id="menu-list" :class="{'is-active': isActive}">
+        <li id="top"><a href="/">Home</a></li>
+        <li id="about"><a href="/about/">About</a></li>
+        <li id="blog"><a href="/blog/">Blog</a></li>
+    </ul>
+
+    <button id="menu-button" @click="toggleMenu">
+        <img
+            id="burger"
+            src="./assets/_Pngtree_hand_drawn_cute_cartoon_burger_4056721-removebg-preview.png"
+            alt="メニューアイコン"
+        />
+    </button>
+</div>
+
+<style scoped>
+    #top,
+    #works,
+    #about,
+    #contact {
+        list-style: none;
+    }
+    #menu-list {
+        visibility: hidden; /* 非アクティブ時は見えなくする */
+        opacity: 0; /* 完全に透明 */
+        position: fixed;
+        bottom: 15%;
+        right: -100%; /* 初期状態では画面外に配置 */
+        transition:
+            right 0.5s,
+            opacity 0.5s,
+            visibility 0s 0.5s; /* 右からスライドインと透明度の変化をアニメーション */
+    }
+
+    #menu-list.is-active {
+        visibility: visible; /* アクティブ時に見えるように */
+        opacity: 1; /* 完全に不透明 */
+        right: 50px; /* 右端に配置 */
+        transition:
+            right 0.5s,
+            opacity 0.5s; /* 右からスライドインと透明度の変化をアニメーション */
+    }
+
+    #top,
+    #works,
+    #about,
+    #contact {
+        margin-bottom: 10px;
+    }
+    #burger {
+        width: 56px;
+        height: 56px;
+        padding: 0%;
+    }
+
+    #menu-button {
+        border: none;
+        background-color: transparent;
+        position: fixed; /* ボタンを画面に固定 */
+        right: 20px; /* 右端から20pxの位置 */
+        bottom: 20px; /* 下端から20pxの位置 */
+        border: none;
+    }
+</style>
