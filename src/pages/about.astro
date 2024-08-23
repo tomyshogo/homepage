@@ -1,21 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
 import { Image } from "astro:assets";
 import selfie from "../assets/IMG_4381.jpg";
-
-import "../styles/global.css";
 import "../styles/about.css";
-const pageTitle = "tomy | about";
 
-const identity = {
-  firstName: "tomy",
-  country: "Japan",
-  city: "Chiba where next to Tokyo",
-  occupation: "Software Engineer",
-  hobbies: ["Programming", "Reading", "Writing"],
-  languages: ["Japanese", "English"],
-};
+// 定数定義
+const pageTitle = "tomy | about";
 
 const sns = [
   {
@@ -149,22 +139,18 @@ const game = [
 
   <div class="container">
     <img
-      width="800"
       src="https://github-profile-trophy.vercel.app/?username=tomyshogo&column=8&theme=gruvbox&no-frame=true"
     />
 
     <img
-      width="800"
       src="https://github-readme-stats.vercel.app/api?username=tomyshogo&show_icons=true&theme=dracula"
     />
 
     <img
-      width="800"
       src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=tomyshogo&theme=dracula"
     />
 
     <img
-      width="800"
       src="https://github-readme-stats.vercel.app/api/top-langs/?username=tomyshogo&langs_count=5&hide=html,cmake&theme=dracula"
     />
 
@@ -272,44 +258,4 @@ const game = [
       }
     </ul>
   </div>
-
-  <style>
-    .profile {
-      text-align: center; /* プロフィールを真ん中に寄せる */
-    }
-    .skill {
-      color: blue;
-      font-weight: bold;
-    }
-    .sns {
-      color: green;
-      font-weight: bold;
-    }
-    .sns-icon-ul {
-      display: grid;
-      grid-gap: 1rem;
-    }
-    .profile-img {
-      width: 30%;
-      height: auto; /* 縦横比を維持 */
-      border-radius: 50%; /* 画像を丸める */
-    }
-    .lang-icon {
-      width: 20px;
-      height: 20px;
-    }
-    .Advanced {
-      color: red;
-    }
-    .Intermediate {
-      color: blue;
-    }
-    .Begginer {
-      color: green;
-    }
-    .sns-icon {
-      width: 30px;
-      height: 30px;
-    }
-  </style>
 </Layout>

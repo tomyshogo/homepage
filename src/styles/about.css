@@ -1,4 +1,57 @@
-li
-{
+li {
     list-style: none;
+}
+
+.container > img{
+    width: 100%;
+}
+
+.profile {
+    text-align: center;
+    /* プロフィールを真ん中に寄せる */
+}
+
+.skill {
+    color: blue;
+    font-weight: bold;
+}
+
+.sns {
+    color: green;
+    font-weight: bold;
+}
+
+.sns-icon-ul {
+    display: grid;
+    grid-gap: 1rem;
+}
+
+.profile-img {
+    width: 30%;
+    height: auto;
+    /* 縦横比を維持 */
+    border-radius: 50%;
+    /* 画像を丸める */
+}
+
+.lang-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.Advanced {
+    color: red;
+}
+
+.Intermediate {
+    color: blue;
+}
+
+.Begginer {
+    color: green;
+}
+
+.sns-icon {
+    width: 30px;
+    height: 30px;
 }
