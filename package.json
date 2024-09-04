@@ -1,5 +1,5 @@
 {
-  "name": "astro-portfolio",
+  "name": "",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.5.16",
-    "@astrojs/check": "^0.5.10",
-    "typescript": "^5.4.4"
+    "astro": "^4.15.2",
+    "@astrojs/check": "^0.9.3",
+    "typescript": "^5.5.4"
   }
 }
