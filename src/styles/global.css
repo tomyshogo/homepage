@@ -112,6 +112,35 @@ a:hover {
   text-decoration: underline;
 }
 
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background-color: #f1f5f9;
+}
+
+.select-wrapper {
+  width: 100px;
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+  transform: rotate(45deg);
+}
+
+
+select:hover {
+  text-decoration: underline;
+}
+
 hr
 {
   color: gray;

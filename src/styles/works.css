@@ -1,0 +1,16 @@
+ul {
+    list-style: none;
+    padding: 0;
+  }
+  .post-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+  }
+
+  .search-tags {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
