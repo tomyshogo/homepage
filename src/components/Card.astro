@@ -44,26 +44,8 @@ const { href, title, description } = Astro.props;
     overflow: hidden;
   }
 
-  .card-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 0;
-    background: var(--accent);
-    transition: height 0.4s var(--ease-out-expo);
-    border-radius: 0 2px 2px 0;
-  }
-
-  .card-link:hover::before {
-    height: 100%;
-  }
-
   .card-link:hover {
-    transform: translateY(-4px) translateX(2px);
-    border-color: var(--border-accent);
-    background: var(--bg-card-hover);
+    transform: translateY(-4px);
   }
 
   .card-meta {
@@ -77,11 +59,11 @@ const { href, title, description } = Astro.props;
     height: 6px;
     border-radius: 50%;
     background: var(--accent);
-    opacity: 0.6;
+    opacity: 0.5;
   }
 
   .card-title {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);

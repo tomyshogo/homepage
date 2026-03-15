@@ -46,8 +46,8 @@ const { frontmatter } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-secondary);
     margin-bottom: 2rem;
     transition: color 0.3s ease;
@@ -84,6 +84,7 @@ const { frontmatter } = Astro.props;
     border-radius: 1rem;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-md);
   }
 
   .post-image img {
@@ -122,14 +123,15 @@ const { frontmatter } = Astro.props;
   .post-content :global(code) {
     font-family: var(--font-mono);
     font-size: 0.85em;
-    background: var(--bg-card);
+    background: var(--bg-secondary);
     padding: 0.15em 0.4em;
     border-radius: 0.3em;
     border: 1px solid var(--border-subtle);
   }
 
   .post-content :global(pre) {
-    background: var(--bg-secondary);
+    background: #1e1e2e;
+    color: #cdd6f4;
     border: 1px solid var(--border-subtle);
     border-radius: 0.75rem;
     padding: 1.25rem;
@@ -141,6 +143,7 @@ const { frontmatter } = Astro.props;
     background: none;
     border: none;
     padding: 0;
+    color: inherit;
   }
 
   .post-content :global(ul),

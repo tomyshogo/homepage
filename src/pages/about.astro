@@ -63,10 +63,10 @@ const skills = [
 
 const levelColor = (level: string) => {
   switch (level) {
-    case "Advanced": return "#f59e0b";
+    case "Advanced": return "#6366f1";
     case "Intermediate": return "#3b82f6";
     case "Beginner": return "#22c55e";
-    default: return "#8a8a8a";
+    default: return "#94a3b8";
   }
 };
 ---
@@ -116,14 +116,14 @@ const levelColor = (level: string) => {
     <div class="stats-grid">
       <div class="stat-card glass">
         <img
-          src="https://github-readme-stats.vercel.app/api?username=tomyshogo&show_icons=true&theme=transparent&hide_border=true&title_color=f59e0b&text_color=8a8a8a&icon_color=f59e0b&bg_color=00000000"
+          src="https://github-readme-stats.vercel.app/api?username=tomyshogo&show_icons=true&theme=default&hide_border=true&title_color=6366f1&text_color=64748b&icon_color=6366f1&bg_color=ffffff"
           alt="GitHub Stats"
           loading="lazy"
         />
       </div>
       <div class="stat-card glass">
         <img
-          src="https://github-readme-stats.vercel.app/api/top-langs/?username=tomyshogo&langs_count=5&hide=html,cmake&theme=transparent&hide_border=true&title_color=f59e0b&text_color=8a8a8a&bg_color=00000000&layout=compact"
+          src="https://github-readme-stats.vercel.app/api/top-langs/?username=tomyshogo&langs_count=5&hide=html,cmake&theme=default&hide_border=true&title_color=6366f1&text_color=64748b&bg_color=ffffff&layout=compact"
           alt="Top Languages"
           loading="lazy"
         />
@@ -131,7 +131,7 @@ const levelColor = (level: string) => {
     </div>
     <div class="stat-wide glass">
       <img
-        src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=tomyshogo&theme=github_dark"
+        src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=tomyshogo&theme=default"
         alt="Profile Summary"
         loading="lazy"
       />
@@ -146,7 +146,7 @@ const levelColor = (level: string) => {
     <h2>Skills & Expertise</h2>
 
     <div class="level-legend">
-      <span class="legend-item"><span class="legend-dot" style="background: #f59e0b"></span>Advanced</span>
+      <span class="legend-item"><span class="legend-dot" style="background: #6366f1"></span>Advanced</span>
       <span class="legend-item"><span class="legend-dot" style="background: #3b82f6"></span>Intermediate</span>
       <span class="legend-item"><span class="legend-dot" style="background: #22c55e"></span>Beginner</span>
     </div>
@@ -213,13 +213,13 @@ const levelColor = (level: string) => {
     height: 180px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--border-accent);
-    filter: grayscale(15%);
-    transition: filter 0.4s ease;
+    border: 3px solid var(--bg-secondary);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.4s ease;
   }
 
   .profile-img:hover {
-    filter: grayscale(0%);
+    transform: scale(1.03);
   }
 
   .profile-name {
@@ -228,9 +228,9 @@ const levelColor = (level: string) => {
   }
 
   .profile-tagline {
-    font-family: var(--font-mono);
     font-size: 0.9rem;
     color: var(--accent);
+    font-weight: 500;
     margin: 0;
   }
 
@@ -252,24 +252,14 @@ const levelColor = (level: string) => {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-secondary);
     transition: all 0.3s ease;
   }
 
   .sns-link:hover {
     color: var(--accent);
-    border-color: var(--border-accent);
-  }
-
-  .sns-link img {
-    filter: grayscale(100%) brightness(0.7);
-    transition: filter 0.3s ease;
-  }
-
-  .sns-link:hover img {
-    filter: none;
   }
 
   /* GitHub Stats */
@@ -334,8 +324,8 @@ const levelColor = (level: string) => {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
     color: var(--text-secondary);
   }
 
@@ -358,13 +348,13 @@ const levelColor = (level: string) => {
   }
 
   .skill-group:hover {
-    border-color: var(--border-accent);
     transform: translateY(-2px);
   }
 
   .group-title {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.85rem;
+    font-weight: 600;
     color: var(--accent);
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
@@ -389,7 +379,7 @@ const levelColor = (level: string) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-card);
+    background: var(--bg-secondary);
     border-radius: 0.5rem;
     flex-shrink: 0;
   }
@@ -437,7 +427,6 @@ const levelColor = (level: string) => {
 
   .interest-card:hover {
     transform: translateY(-4px);
-    border-color: var(--border-accent);
   }
 
   .interest-emoji {
@@ -447,8 +436,9 @@ const levelColor = (level: string) => {
   }
 
   .interest-card h3 {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.95rem;
+    font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 0.4rem;
   }

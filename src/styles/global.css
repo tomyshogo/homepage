@@ -55,18 +55,18 @@ select:hover {
   pointer-events: none;
 }
 
-/* Glass card utility */
+/* Card utility */
 .glass {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s var(--ease-out-expo);
 }
 
 .glass:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(99, 102, 241, 0.3);
 }
 
 /* Section spacing */
@@ -81,4 +81,5 @@ select:hover {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--accent);
+  font-weight: 500;
 }
