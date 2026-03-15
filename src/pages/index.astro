@@ -9,9 +9,13 @@ const pageTitle = "tomy | Software Engineer";
 <Layout title={pageTitle}>
   <!-- Hero Section -->
   <section class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-content">
       <div class="hero-text">
-        <p class="mono-label reveal">Software Engineer</p>
+        <div class="hero-badge reveal">
+          <span class="badge-dot"></span>
+          <span>Software Engineer</span>
+        </div>
         <h1 class="hero-title reveal reveal-delay-1">
           Hi, I'm <span class="accent">tomy</span>
         </h1>
@@ -20,7 +24,12 @@ const pageTitle = "tomy | Software Engineer";
           IoTプロダクトやゲーム開発にも興味を持ち、幅広い技術スタックで開発に取り組んでいます。
         </p>
         <div class="hero-actions reveal reveal-delay-3">
-          <a href="/about/" class="btn-primary">About Me</a>
+          <a href="/about/" class="btn-primary">
+            About Me
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
           <a href="/works/" class="btn-secondary">Works</a>
         </div>
       </div>
@@ -34,35 +43,28 @@ const pageTitle = "tomy | Software Engineer";
             class="portrait"
           />
         </div>
+        <div class="image-decoration"></div>
       </div>
-    </div>
-  </section>
-
-  <!-- Status Section -->
-  <section class="status reveal reveal-delay-4">
-    <div class="status-card">
-      <span class="status-dot"></span>
-      <span class="status-text">Available for freelance work</span>
     </div>
   </section>
 
   <!-- Quick Links -->
   <section class="quick-links reveal reveal-delay-5">
     <div class="link-grid">
-      <a href="/about/" class="quick-card glass">
-        <span class="card-icon">01</span>
+      <a href="/about/" class="quick-card">
+        <div class="card-number">01</div>
         <h3>About</h3>
         <p>スキル・経歴について</p>
         <span class="card-arrow">&rarr;</span>
       </a>
-      <a href="/works/" class="quick-card glass">
-        <span class="card-icon">02</span>
+      <a href="/works/" class="quick-card">
+        <div class="card-number">02</div>
         <h3>Works</h3>
         <p>ブログ・活動記録</p>
         <span class="card-arrow">&rarr;</span>
       </a>
-      <a href="https://github.com/tomyshogo" target="_blank" rel="noopener noreferrer" class="quick-card glass">
-        <span class="card-icon">03</span>
+      <a href="https://github.com/tomyshogo" target="_blank" rel="noopener noreferrer" class="quick-card">
+        <div class="card-number">03</div>
         <h3>GitHub</h3>
         <p>オープンソース活動</p>
         <span class="card-arrow">&rarr;</span>
@@ -75,126 +77,45 @@ const pageTitle = "tomy | Software Engineer";
   /* Hero */
   .hero {
     position: relative;
-    padding: 5rem 0 3rem;
+    padding: 5rem 0 4rem;
+    margin: -2rem -2rem 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-hero);
+    z-index: -1;
   }
 
   .hero-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 4rem;
     align-items: center;
   }
 
-  .hero-title {
-    margin: 0.75rem 0 1.25rem;
-  }
-
-  .accent {
-    color: var(--accent);
-    position: relative;
-  }
-
-  .accent::after {
-    content: "";
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: var(--accent-dim);
-    border-radius: 2px;
-    z-index: -1;
-  }
-
-  .hero-desc {
-    max-width: 480px;
-    font-size: 1.05rem;
-    line-height: 1.9;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .btn-primary {
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.75rem 1.75rem;
-    background: var(--accent);
-    color: #ffffff;
-    border-radius: 0.75rem;
-    transition: all 0.3s var(--ease-out-expo);
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
-  }
-
-  .btn-primary:hover {
-    background: #4f46e5;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
-  }
-
-  .btn-secondary {
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.75rem 1.75rem;
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    border-radius: 0.75rem;
-    transition: all 0.3s var(--ease-out-expo);
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-    background: var(--accent-dim);
-  }
-
-  /* Portrait */
-  .hero-image {
-    position: relative;
-  }
-
-  .image-frame {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    border-radius: 2rem;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-  }
-
-  .portrait {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 2rem;
-    transition: transform 0.5s ease;
-  }
-
-  .image-frame:hover .portrait {
-    transform: scale(1.03);
-  }
-
-  /* Status */
-  .status {
-    margin: 2rem 0 3rem;
-  }
-
-  .status-card {
+  .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 1.25rem;
-    border-radius: 2rem;
-    background: var(--bg-secondary);
+    gap: 0.6rem;
+    padding: 0.4rem 1rem 0.4rem 0.6rem;
+    background: var(--bg-card);
     border: 1px solid var(--border-subtle);
+    border-radius: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.25rem;
   }
 
-  .status-dot {
+  .badge-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -205,51 +126,159 @@ const pageTitle = "tomy | Software Engineer";
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    50% { opacity: 0.4; }
   }
 
-  .status-text {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
+  .hero-title {
+    margin: 0 0 1.25rem;
+    line-height: 1.1;
+  }
+
+  .accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    font-size: 1.05rem;
+    line-height: 1.9;
     color: var(--text-secondary);
   }
 
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.8rem 1.75rem;
+    background: var(--gradient-accent);
+    color: #ffffff;
+    border-radius: 0.75rem;
+    transition: all 0.3s var(--ease-out-expo);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn-primary:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-secondary {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.8rem 1.75rem;
+    border: 1.5px solid var(--border-subtle);
+    color: var(--text-secondary);
+    border-radius: 0.75rem;
+    background: var(--bg-card);
+    transition: all 0.3s var(--ease-out-expo);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Portrait */
+  .hero-image {
+    position: relative;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 4px solid #ffffff;
+  }
+
+  .image-decoration {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    border: 2px dashed rgba(99, 102, 241, 0.2);
+    top: 16px;
+    left: 16px;
+    z-index: -1;
+  }
+
+  .portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: calc(var(--radius-lg) - 4px);
+    transition: transform 0.5s ease;
+  }
+
+  .image-frame:hover .portrait {
+    transform: scale(1.03);
+  }
+
   /* Quick Links */
+  .quick-links {
+    margin-top: 1rem;
+  }
+
   .link-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   .quick-card {
-    padding: 1.75rem;
-    border-radius: 1rem;
+    padding: 2rem;
+    border-radius: var(--radius);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    transition: all 0.4s var(--ease-out-expo);
+    transition: all 0.3s var(--ease-out-expo);
     text-decoration: none;
     position: relative;
-    overflow: hidden;
+    background: var(--gradient-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
   }
 
   .quick-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(99, 102, 241, 0.2);
   }
 
-  .card-icon {
+  .card-number {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    opacity: 0.5;
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.3;
+    line-height: 1;
   }
 
   .quick-card h3 {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: var(--text-primary);
-    margin: 0;
+    margin: 0.25rem 0 0;
   }
 
   .quick-card p {
@@ -259,7 +288,7 @@ const pageTitle = "tomy | Software Engineer";
   }
 
   .card-arrow {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--accent);
     margin-top: auto;
     opacity: 0;
@@ -275,13 +304,18 @@ const pageTitle = "tomy | Software Engineer";
   /* Responsive */
   @media (max-width: 768px) {
     .hero {
-      padding: 2rem 0;
+      padding: 3rem 2rem;
     }
 
     .hero-content {
       grid-template-columns: 1fr;
       gap: 2.5rem;
       text-align: center;
+    }
+
+    .hero-badge {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-desc {
@@ -297,9 +331,16 @@ const pageTitle = "tomy | Software Engineer";
     }
 
     .image-frame {
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
       margin: 0 auto;
+    }
+
+    .image-decoration {
+      width: 220px;
+      height: 220px;
+      top: 12px;
+      left: calc(50% - 98px);
     }
 
     .link-grid {

@@ -40,9 +40,9 @@ const navItems = [
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(254, 254, 254, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--border-subtle);
   }
 
@@ -58,14 +58,14 @@ const navItems = [
 
   .logo {
     font-family: var(--font-sans);
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 800;
     color: var(--text-primary);
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 4px;
-    letter-spacing: -0.02em;
+    gap: 2px;
+    letter-spacing: -0.03em;
   }
 
   .logo:hover {
@@ -73,12 +73,12 @@ const navItems = [
   }
 
   .logo-dot {
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--gradient-accent);
     display: inline-block;
-    margin-bottom: -4px;
+    margin-bottom: -6px;
   }
 
   .nav-links {
@@ -95,7 +95,7 @@ const navItems = [
     color: var(--text-secondary);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-decoration: none;
   }
 
@@ -107,6 +107,7 @@ const navItems = [
   .nav-link.active {
     color: var(--accent);
     background: var(--accent-light);
+    font-weight: 600;
   }
 
   .menu-toggle {
@@ -139,9 +140,9 @@ const navItems = [
       left: 0;
       right: 0;
       flex-direction: column;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(254, 254, 254, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       padding: 1.5rem 2rem;
       border-bottom: 1px solid var(--border-subtle);
       transform: translateY(-100%);

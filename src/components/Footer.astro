@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 <footer>
   <div class="footer-inner">
     <div class="footer-left">
-      <span class="footer-logo">tomy.</span>
+      <span class="footer-logo">tomy<span class="dot">.</span></span>
       <p class="footer-copy">&copy; {year} tomy. All rights reserved.</p>
     </div>
     <div class="footer-links">
@@ -27,7 +27,7 @@ const year = new Date().getFullYear();
 <style>
   footer {
     border-top: 1px solid var(--border-subtle);
-    padding: 2rem 0;
+    padding: 2.5rem 0;
     position: relative;
     z-index: 1;
     background: var(--bg-secondary);
@@ -44,10 +44,17 @@ const year = new Date().getFullYear();
 
   .footer-logo {
     font-family: var(--font-sans);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
-    font-size: 1rem;
-    letter-spacing: -0.02em;
+    font-size: 1.1rem;
+    letter-spacing: -0.03em;
+  }
+
+  .footer-logo .dot {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .footer-copy {
@@ -68,7 +75,7 @@ const year = new Date().getFullYear();
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
   }
 
   .footer-links a:hover {
