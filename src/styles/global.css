@@ -16,7 +16,7 @@ hr {
   border: none;
   height: 1px;
   background: var(--border-subtle);
-  margin: 3rem 0;
+  margin: 3.5rem 0;
 }
 
 select {
@@ -24,17 +24,19 @@ select {
   -webkit-appearance: none;
   font-family: var(--font-sans);
   font-size: 0.9rem;
-  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  padding: 0.6rem 2.2rem 0.6rem 1rem;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   color: var(--text-primary);
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 select:hover {
   border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
 
 .select-wrapper {
@@ -46,27 +48,28 @@ select:hover {
   content: "";
   position: absolute;
   top: 50%;
-  right: 0.75rem;
+  right: 0.85rem;
   width: 6px;
   height: 6px;
-  border-right: 1.5px solid var(--text-secondary);
-  border-bottom: 1.5px solid var(--text-secondary);
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
   transform: translateY(-70%) rotate(45deg);
   pointer-events: none;
 }
 
-/* Glass card utility */
+/* Card utility */
 .glass {
-  background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--gradient-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s var(--ease-out-expo);
 }
 
 .glass:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Section spacing */
@@ -81,4 +84,17 @@ select:hover {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--accent);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mono-label::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--gradient-accent);
+  border-radius: 1px;
 }
