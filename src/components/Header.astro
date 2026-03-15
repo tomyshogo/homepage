@@ -1,92 +1,190 @@
 ---
-// import Hamburger from "./Hamburgur.astro";
-// import Navigation from "./Navigation.astro";
-import { Image } from "astro:assets";
-import hamburger from "../assets/hamburger.png";
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about/" },
+  { label: "Works", href: "/works/" },
+];
 ---
 
 <header>
-  <div class="navigation">
-    <ul id="menu-list" :class="{'is-active': isActive}">
-      <li id="top"><a href="/">Home</a></li>
-      <li id="about"><a href="/about/">About</a></li>
-      <li id="blog"><a href="/works/">Works</a></li>
+  <nav class="nav">
+    <a href="/" class="logo">
+      <span class="logo-bracket">{</span>
+      <span class="logo-text">tomy</span>
+      <span class="logo-bracket">}</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={["nav-link", { active: currentPath === item.href }]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
     </ul>
 
-    <button id="menu-button">
-      <Image id="burger" src={hamburger} alt="メニューアイコン" />
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
     </button>
-  </div>
+  </nav>
 </header>
-<style scoped>
-  li {
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    gap: 2px;
+  }
+
+  .logo:hover {
+    color: var(--text-primary);
+  }
+
+  .logo-bracket {
+    color: var(--accent);
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .logo:hover .logo-bracket:first-child {
+    transform: translateX(-2px);
+  }
+
+  .logo:hover .logo-bracket:last-child {
+    transform: translateX(2px);
+  }
+
+  .logo-text {
+    color: var(--text-primary);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  @media (min-width: 1070px) {
-    #menu-list {
-      visibility: hidden; /* 非アクティブ時は見えなくする */
-      opacity: 0; /* 完全に透明 */
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+  }
+
+  .nav-link.active {
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 1px;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 640px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
       position: fixed;
-      bottom: 15%;
-      right: -100%; /* 初期状態では画面外に配置 */
-      transition:
-        right 0.5s,
-        opacity 0.5s,
-        visibility 0s 0.5s; /* 右からスライドインと透明度の変化をアニメーション */
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s var(--ease-out-expo);
     }
 
-    #menu-list.is-active {
-      visibility: visible; /* アクティブ時に見えるように */
-      opacity: 1; /* 完全に不透明 */
-      right: 50px; /* 右端に配置 */
-      transition:
-        right 0.5s,
-        opacity 0.5s; /* 右からスライドインと透明度の変化をアニメーション */
-    }
-  }
-  @media (max-width: 1070px) {
-    #menu-list {
-      bottom: auto; /* 下端からの位置をリセット */
-      top: 0; /* 上端に配置 */
-      right: 0; /* 右端に配置 */
-      left: 0; /* 左端に配置 */
-      display: flex; /* 横並びにする */
-      justify-content: space-around; /* 均等に配置 */
-      transition:
-        top 3.5s,
-        opacity 3.5s,
-        visibility 0s 0.2s; /* 上からスライドインと透明度の変化をアニメーション */
-      margin-bottom: 10px;
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    #menu-button {
-      display: none; /* デスクトップサイズではハンバーガーメニューを非表示 */
+    .nav-link {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
     }
-  }
 
-  #top,
-  #works,
-  #about,
-  #contact {
-    margin-bottom: 10px;
-  }
-  #burger {
-    width: 56px;
-    height: 56px;
-    padding: 0%;
-  }
+    .menu-toggle.is-open .bar:first-child {
+      transform: translateY(3.5px) rotate(45deg);
+    }
 
-  #menu-button {
-    border: none;
-    background-color: transparent;
-    position: fixed; /* ボタンを画面に固定 */
-    right: 20px; /* 右端から20pxの位置 */
-    bottom: 20px; /* 下端から20pxの位置 */
-    border: none;
+    .menu-toggle.is-open .bar:last-child {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
   }
 </style>
 
 <script>
-  import "../scripts/menu.js";
+  const toggle = document.getElementById("menu-toggle");
+  const links = document.getElementById("nav-links");
+
+  toggle?.addEventListener("click", () => {
+    toggle.classList.toggle("is-open");
+    links?.classList.toggle("is-open");
+  });
 </script>

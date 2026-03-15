@@ -2,10 +2,8 @@
 import BlogPost from "../../components/BlogPost.astro";
 import Layout from "../../layouts/Layout.astro";
 
-// Add return type annotation for getStaticPaths function to resolve the implicit 'any' return type error
 export async function getStaticPaths(): Promise<{ params: { tag: string }, props: { posts: any[] } }[]> {
   const allPosts = await Astro.glob("../posts/*.md");
-
   const uniqueTags = [
     ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
   ];
@@ -25,21 +23,71 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<Layout pageTitle={tag}>
-  <p>Posts tagged with</p>
-  <h2>{tag}</h2>
-  <ul class="post-card">
-    {posts.map((post: any) => post.url && <BlogPost {post} />)}
+<Layout title={`tomy | #${tag}`}>
+  <section class="tag-header reveal">
+    <a href="/tags/" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"/>
+        <path d="M19 12H5"/>
+      </svg>
+      All Tags
+    </a>
+    <p class="mono-label">Tag</p>
+    <h1><span class="tag-hash">#</span>{tag}</h1>
+    <p class="tag-count">{posts.length} post{posts.length > 1 ? "s" : ""}</p>
+  </section>
+
+  <ul class="post-grid reveal reveal-delay-1">
+    {posts.map((post: any) => post.url && <BlogPost post={post} />)}
   </ul>
 </Layout>
 
 <style>
-  p {
-    font-size: 1.5rem;
+  .tag-header {
+    padding: 3rem 0 1.5rem;
   }
-  .post-card {
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .tag-header h1 {
+    margin: 0.5rem 0;
+  }
+
+  .tag-hash {
+    color: var(--accent);
+    opacity: 0.6;
+  }
+
+  .tag-count {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .post-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  @media (max-width: 768px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

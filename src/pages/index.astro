@@ -2,38 +2,384 @@
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import selfie from "../assets/IMG_4381.jpg";
-import "../styles/global.css";
-import "../styles/index.css";
 
-// 定数定義
-const pageTitle = "tomy | home";
+const pageTitle = "tomy | Software Engineer";
 ---
 
 <Layout title={pageTitle}>
-  <h1>Welcome to my page</h1>
-  <h2>I'm tomy, a software engineer</h2>
-
-  <div class="intro">
-    <li class="link-card">
-      <a href="./about">
-        <Image
-          id="selfie"
-          class="link-card-image"
-          src={selfie}
-          alt="メニューアイコン"
-        />
-      </a>
-    </li>
-    <div class="activities">
-      <h2>Recent Activities</h2>
-      <a href="works" class="a-view-all">view all →</a>
-      <li class="link-card"></li>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="mono-label reveal">Software Engineer</p>
+        <h1 class="hero-title reveal reveal-delay-1">
+          Hi, I'm <span class="accent">tomy</span>
+        </h1>
+        <p class="hero-desc reveal reveal-delay-2">
+          テクノロジー、プログラミング、デザインに情熱を持つソフトウェアエンジニア。
+          IoTプロダクトやゲーム開発にも興味を持ち、幅広い技術スタックで開発に取り組んでいます。
+        </p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="/about/" class="btn-primary">About Me</a>
+          <a href="/works/" class="btn-secondary">Works</a>
+        </div>
+      </div>
+      <div class="hero-image reveal reveal-delay-2">
+        <div class="image-frame">
+          <Image
+            src={selfie}
+            alt="tomy - Software Engineer"
+            width={400}
+            height={400}
+            class="portrait"
+          />
+          <div class="image-glow"></div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <p>
-    Hi, I'm tomy, a software engineer from Japan. I'm a fan of technologies,
-    programming, and design. I'm also interested in Iot Product and Game
-    Development. You can read my blog with a click on the button above.
-  </p>
+    <!-- Decorative grid -->
+    <div class="hero-grid" aria-hidden="true">
+      <div class="grid-line horizontal"></div>
+      <div class="grid-line vertical"></div>
+    </div>
+  </section>
+
+  <!-- Status Section -->
+  <section class="status reveal reveal-delay-4">
+    <div class="status-card glass">
+      <span class="status-dot"></span>
+      <span class="status-text">Available for freelance work</span>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="quick-links reveal reveal-delay-5">
+    <div class="link-grid">
+      <a href="/about/" class="quick-card glass">
+        <span class="card-icon">01</span>
+        <h3>About</h3>
+        <p>スキル・経歴について</p>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a href="/works/" class="quick-card glass">
+        <span class="card-icon">02</span>
+        <h3>Works</h3>
+        <p>ブログ・活動記録</p>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a href="https://github.com/tomyshogo" target="_blank" rel="noopener noreferrer" class="quick-card glass">
+        <span class="card-icon">03</span>
+        <h3>GitHub</h3>
+        <p>オープンソース活動</p>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 4rem 0 3rem;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-title {
+    margin: 0.75rem 0 1.25rem;
+  }
+
+  .accent {
+    color: var(--accent);
+    position: relative;
+  }
+
+  .accent::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.4;
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: 0.5rem;
+    transition: all 0.3s var(--ease-out-expo);
+  }
+
+  .btn-primary:hover {
+    background: #fbbf24;
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--accent-glow);
+  }
+
+  .btn-secondary {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    border-radius: 0.5rem;
+    transition: all 0.3s var(--ease-out-expo);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Portrait */
+  .hero-image {
+    position: relative;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+
+  .portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.5s ease;
+  }
+
+  .portrait:hover {
+    filter: grayscale(0%) contrast(1);
+  }
+
+  .image-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border-accent);
+    pointer-events: none;
+  }
+
+  .image-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    background: linear-gradient(
+      135deg,
+      transparent 60%,
+      var(--accent-glow) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Decorative grid */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+  }
+
+  .grid-line {
+    position: absolute;
+    background: var(--accent);
+  }
+
+  .grid-line.horizontal {
+    height: 1px;
+    width: 120%;
+    left: -10%;
+    top: 50%;
+  }
+
+  .grid-line.vertical {
+    width: 1px;
+    height: 120%;
+    top: -10%;
+    right: 30%;
+  }
+
+  /* Status */
+  .status {
+    margin: 2rem 0 3rem;
+  }
+
+  .status-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 2rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .status-text {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  /* Quick Links */
+  .link-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .quick-card {
+    padding: 1.75rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.4s var(--ease-out-expo);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quick-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .quick-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .quick-card:hover {
+    transform: translateY(-4px);
+    background: var(--bg-card-hover);
+    border-color: var(--border-accent);
+  }
+
+  .card-icon {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    opacity: 0.6;
+  }
+
+  .quick-card h3 {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .quick-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .card-arrow {
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-top: auto;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s var(--ease-out-expo);
+  }
+
+  .quick-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 2rem 0;
+    }
+
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    .hero-desc {
+      max-width: 100%;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-image {
+      order: -1;
+    }
+
+    .image-frame {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    .link-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-grid {
+      display: none;
+    }
+  }
+</style>
