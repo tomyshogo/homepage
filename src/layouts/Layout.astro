@@ -16,7 +16,7 @@ const { title } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
@@ -33,36 +33,50 @@ const { title } = Astro.props;
 
 <style is:global>
   :root {
-    --bg-primary: #fefefe;
-    --bg-secondary: #f4f6f9;
-    --bg-tertiary: #edf0f7;
+    /* Notion-inspired warm off-white */
+    --bg-primary: #fbfbfa;
+    --bg-secondary: #f5f5f3;
+    --bg-tertiary: #efedea;
     --bg-card: #ffffff;
-    --bg-card-hover: #fafbff;
-    --border-subtle: rgba(0, 0, 0, 0.06);
-    --border-accent: #818cf8;
-    --text-primary: #111827;
-    --text-secondary: #6b7280;
-    --text-muted: #9ca3af;
-    --accent: #6366f1;
-    --accent-hover: #4f46e5;
-    --accent-light: #eef2ff;
-    --accent-lighter: #f5f3ff;
-    --accent-dim: rgba(99, 102, 241, 0.08);
-    --accent-glow: rgba(99, 102, 241, 0.15);
-    --gradient-hero: linear-gradient(135deg, #fefefe 0%, #f0f0ff 40%, #e8ecff 70%, #f5f3ff 100%);
-    --gradient-accent: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
-    --gradient-card: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
+    --bg-card-hover: #fefefe;
+
+    /* Borders - Notion-like subtle warmth */
+    --border-subtle: rgba(55, 53, 47, 0.09);
+    --border-medium: rgba(55, 53, 47, 0.16);
+
+    /* Text - Notion-like warm grays */
+    --text-primary: #37352f;
+    --text-secondary: #6b6b6b;
+    --text-muted: #9b9a97;
+
+    /* Raycast-inspired purple accent */
+    --accent: #7c3aed;
+    --accent-hover: #6d28d9;
+    --accent-light: #f5f3ff;
+    --accent-dim: rgba(124, 58, 237, 0.06);
+    --accent-glow: rgba(124, 58, 237, 0.12);
+    --accent-glow-strong: rgba(124, 58, 237, 0.2);
+
+    /* Fonts */
     --font-mono: "JetBrains Mono", "Fira Code", monospace;
     --font-sans: "Inter", system-ui, sans-serif;
+
+    /* Spacing & Layout */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --max-width: 1100px;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.03), 0 6px 16px rgba(0, 0, 0, 0.04);
-    --shadow-card-hover: 0 8px 30px rgba(99, 102, 241, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
-    --radius: 1rem;
-    --radius-lg: 1.5rem;
+    --max-width: 1080px;
+
+    /* Shadows - soft Notion-style */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 8px 24px rgba(124, 58, 237, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    /* Raycast glow */
+    --glow-purple: 0 0 60px rgba(124, 58, 237, 0.08), 0 0 120px rgba(124, 58, 237, 0.04);
+
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
   }
 
   * {
@@ -86,7 +100,6 @@ const { title } = Astro.props;
     flex-direction: column;
     line-height: 1.7;
     overflow-x: hidden;
-    background: var(--bg-primary);
   }
 
   main {
@@ -95,46 +108,32 @@ const { title } = Astro.props;
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 2rem 2rem 4rem;
-    position: relative;
-    z-index: 1;
   }
 
+  /* Notion-style typography */
   h1, h2, h3, h4 {
     font-family: var(--font-sans);
     font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
     color: var(--text-primary);
   }
 
-  h1 {
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    font-weight: 800;
-  }
-
-  h2 {
-    font-size: clamp(1.4rem, 3vw, 2rem);
-  }
-
-  h3 {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-  }
+  h1 { font-size: clamp(2rem, 5vw, 2.75rem); }
+  h2 { font-size: clamp(1.3rem, 3vw, 1.75rem); }
+  h3 { font-size: 1rem; font-weight: 600; }
 
   a {
-    color: var(--accent);
+    color: var(--text-primary);
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
   }
 
-  a:hover {
-    color: var(--accent-hover);
-  }
+  a:hover { color: var(--accent); }
 
   p {
     color: var(--text-secondary);
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.8;
   }
 
@@ -146,38 +145,23 @@ const { title } = Astro.props;
   /* Reveal animations */
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    animation: revealUp 0.7s var(--ease-out-expo) forwards;
+    transform: translateY(16px);
+    animation: revealUp 0.6s var(--ease-out-expo) forwards;
   }
 
-  .reveal-delay-1 { animation-delay: 0.1s; }
-  .reveal-delay-2 { animation-delay: 0.2s; }
-  .reveal-delay-3 { animation-delay: 0.3s; }
-  .reveal-delay-4 { animation-delay: 0.4s; }
-  .reveal-delay-5 { animation-delay: 0.5s; }
+  .reveal-delay-1 { animation-delay: 0.08s; }
+  .reveal-delay-2 { animation-delay: 0.16s; }
+  .reveal-delay-3 { animation-delay: 0.24s; }
+  .reveal-delay-4 { animation-delay: 0.32s; }
+  .reveal-delay-5 { animation-delay: 0.4s; }
 
   @keyframes revealUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #c7d2e0;
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 </style>

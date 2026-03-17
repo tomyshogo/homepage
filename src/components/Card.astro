@@ -10,17 +10,10 @@ const { href, title, description } = Astro.props;
 ---
 
 <li class="post-card">
-  <a href={href} class="card-link">
-    <div class="card-accent"></div>
+  <a href={href} class="card-link glow-card">
     <h3 class="card-title">{title}</h3>
     {description && <p class="card-desc">{description}</p>}
-    <span class="card-read">
-      Read more
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14"/>
-        <path d="m12 5 7 7-7 7"/>
-      </svg>
-    </span>
+    <span class="card-read">Read more →</span>
   </a>
 </li>
 
@@ -32,48 +25,18 @@ const { href, title, description } = Astro.props;
   .card-link {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 1.75rem;
-    border-radius: var(--radius);
+    gap: 0.5rem;
+    padding: 1.5rem;
     text-decoration: none;
-    transition: all 0.3s var(--ease-out-expo);
     height: 100%;
-    position: relative;
-    background: var(--gradient-card);
-    border: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-card);
-    overflow: hidden;
-  }
-
-  .card-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--gradient-accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s var(--ease-out-expo);
-  }
-
-  .card-link:hover .card-accent {
-    transform: scaleX(1);
-  }
-
-  .card-link:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: rgba(99, 102, 241, 0.15);
   }
 
   .card-title {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 600;
     color: var(--text-primary);
-    margin: 0;
     line-height: 1.4;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
   }
 
   .card-link:hover .card-title {
@@ -81,7 +44,7 @@ const { href, title, description } = Astro.props;
   }
 
   .card-desc {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     margin: 0;
     line-height: 1.6;
@@ -92,17 +55,14 @@ const { href, title, description } = Astro.props;
   }
 
   .card-read {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 500;
     color: var(--accent);
     margin-top: auto;
     opacity: 0;
-    transform: translateX(-8px);
-    transition: all 0.3s var(--ease-out-expo);
+    transform: translateX(-4px);
+    transition: all 0.2s ease;
   }
 
   .card-link:hover .card-read {
