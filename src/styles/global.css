@@ -118,10 +118,6 @@ select:hover {
   margin-bottom: 0.5rem;
 }
 
-.section-label .emoji {
-  font-size: 1.1rem;
-}
-
 /* Mono label with Raycast accent */
 .mono-label {
   font-family: var(--font-mono);

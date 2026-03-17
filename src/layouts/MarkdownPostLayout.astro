@@ -7,7 +7,7 @@ const { frontmatter } = Astro.props;
   <article class="post reveal">
     <header class="post-header">
       <a href="/works/" class="back-link">← Back to Works</a>
-      <div class="section-label"><span class="emoji">📄</span> {frontmatter.pubDate?.slice(0, 10)}</div>
+      <div class="section-label">{frontmatter.pubDate?.slice(0, 10)}</div>
       <h1>{frontmatter.title}</h1>
       {frontmatter.description && (
         <p class="post-desc">{frontmatter.description}</p>

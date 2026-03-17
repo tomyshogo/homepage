@@ -16,7 +16,6 @@ const sns = [
 const skills = [
   {
     category: "Frontend",
-    emoji: "🎨",
     items: [
       { name: "JavaScript", level: "Advanced", icon: "https://cdn.svgporn.com/logos/javascript.svg" },
       { name: "React", level: "Beginner", icon: "https://cdn.svgporn.com/logos/react.svg" },
@@ -25,7 +24,6 @@ const skills = [
   },
   {
     category: "Backend",
-    emoji: "⚙️",
     items: [
       { name: "C#", level: "Advanced", icon: "https://cdn.svgporn.com/logos/c-sharp.svg" },
       { name: "Python", level: "Intermediate", icon: "https://cdn.svgporn.com/logos/python.svg" },
@@ -36,14 +34,12 @@ const skills = [
   },
   {
     category: "Mobile",
-    emoji: "📱",
     items: [
       { name: "Swift", level: "Intermediate", icon: "https://cdn.svgporn.com/logos/swift.svg" },
     ],
   },
   {
     category: "Infrastructure",
-    emoji: "☁️",
     items: [
       { name: "AWS", level: "Advanced", icon: "https://cdn.svgporn.com/logos/aws.svg" },
       { name: "Firebase", level: "Intermediate", icon: "https://cdn.svgporn.com/logos/firebase.svg" },
@@ -51,7 +47,6 @@ const skills = [
   },
   {
     category: "Database",
-    emoji: "🗄️",
     items: [
       { name: "Oracle", level: "Advanced", icon: "https://cdn.svgporn.com/logos/oracle.svg" },
       { name: "PostgreSQL", level: "Intermediate", icon: "https://cdn.svgporn.com/logos/postgresql.svg" },
@@ -60,7 +55,6 @@ const skills = [
   },
   {
     category: "Game Dev",
-    emoji: "🎮",
     items: [
       { name: "Unity", level: "Intermediate", icon: "https://cdn.svgporn.com/logos/unity.svg" },
     ],
@@ -92,7 +86,7 @@ const levelStyle = (level: string) => {
         />
       </div>
       <div class="profile-info">
-        <div class="section-label"><span class="emoji">👤</span> Profile</div>
+        <div class="section-label">Profile</div>
         <h1 class="profile-name">冨谷 彰吾</h1>
         <p class="profile-role">Software Engineer / Freelance</p>
         <p class="profile-bio">
@@ -114,7 +108,7 @@ const levelStyle = (level: string) => {
 
   <!-- GitHub Stats -->
   <section class="reveal reveal-delay-1">
-    <div class="section-label"><span class="emoji">📊</span> GitHub Activity</div>
+    <div class="section-label">GitHub Activity</div>
     <h2>Stats & Contributions</h2>
     <div class="stats-bento">
       <div class="stat-card notion-block">
@@ -145,7 +139,7 @@ const levelStyle = (level: string) => {
 
   <!-- Skills - Bento with emoji headers -->
   <section class="reveal reveal-delay-2">
-    <div class="section-label"><span class="emoji">🛠</span> Tech Stack</div>
+    <div class="section-label">Tech Stack</div>
     <h2>Skills & Expertise</h2>
 
     <div class="level-legend">
@@ -157,10 +151,7 @@ const levelStyle = (level: string) => {
     <div class="skills-bento">
       {skills.map((group) => (
         <div class="skill-group glow-card">
-          <h3 class="group-title">
-            <span class="group-emoji">{group.emoji}</span>
-            {group.category}
-          </h3>
+          <h3 class="group-title">{group.category}</h3>
           <div class="skill-items">
             {group.items.map((skill) => (
               <div class="skill-item">
@@ -181,16 +172,14 @@ const levelStyle = (level: string) => {
 
   <!-- Interests -->
   <section class="interests reveal reveal-delay-3">
-    <div class="section-label"><span class="emoji">💡</span> Interests</div>
+    <div class="section-label">Interests</div>
     <h2>What I'm Into</h2>
     <div class="interests-grid">
       <div class="interest-item glow-card">
-        <span class="interest-emoji">🎮</span>
         <h3>Game Development</h3>
         <p>Unityを使ったゲーム開発</p>
       </div>
       <div class="interest-item glow-card">
-        <span class="interest-emoji">📡</span>
         <h3>IoT Product</h3>
         <p>IoTプロダクトの設計と開発</p>
       </div>
@@ -359,19 +348,12 @@ const levelStyle = (level: string) => {
   }
 
   .group-title {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
     font-size: 0.88rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .group-emoji {
-    font-size: 1rem;
   }
 
   .skill-items {
@@ -448,12 +430,6 @@ const levelStyle = (level: string) => {
   .interest-item {
     padding: 1.75rem;
     text-align: center;
-  }
-
-  .interest-emoji {
-    font-size: 2.2rem;
-    display: block;
-    margin-bottom: 0.75rem;
   }
 
   .interest-item h3 {
