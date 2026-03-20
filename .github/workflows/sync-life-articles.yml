@@ -1,0 +1,42 @@
+name: Sync articles from life repo
+
+on:
+  # Triggered from life repo via repository_dispatch
+  repository_dispatch:
+    types: [sync-articles]
+
+  # Manual trigger
+  workflow_dispatch:
+
+  # Daily check at 7:00 AM JST (22:00 UTC previous day)
+  schedule:
+    - cron: '0 22 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout homepage
+        uses: actions/checkout@v4
+
+      - name: Run sync script
+        run: bash scripts/sync-life-articles.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/pages/posts/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/pages/posts/
+          git commit -m "Sync articles from life repo"
+          git push
