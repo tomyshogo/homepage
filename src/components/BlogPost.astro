@@ -8,4 +8,6 @@ const { post } = Astro.props;
   title={post.frontmatter.title}
   href={post.url}
   description={post.frontmatter.description}
+  date={post.frontmatter.pubDate?.toString().slice(0, 10)}
+  tags={post.frontmatter.tags}
 />

@@ -4,16 +4,31 @@ export interface Props {
   body?: string;
   href?: string;
   description?: string;
+  date?: string;
+  tags?: string[];
 }
 
-const { href, title, description } = Astro.props;
+const { href, title, description, date, tags } = Astro.props;
 ---
 
 <li class="post-card">
   <a href={href} class="card-link glow-card">
+    {date && (
+      <span class="card-date">{date}</span>
+    )}
     <h3 class="card-title">{title}</h3>
     {description && <p class="card-desc">{description}</p>}
-    <span class="card-read">Read more →</span>
+    <div class="card-footer">
+      {tags && tags.length > 0 && (
+        <div class="card-tags">
+          {tags.map((tag: string) => (
+            <span class="card-tag">#{tag}</span>
+          ))}
+        </div>
+      )}
+      <span class="card-read">Read more</span>
+    </div>
+    <div class="card-accent-line"></div>
   </a>
 </li>
 
@@ -29,6 +44,34 @@ const { href, title, description } = Astro.props;
     padding: 1.5rem;
     text-decoration: none;
     height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), rgba(124, 58, 237, 0.3));
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.35s var(--ease-out-expo);
+  }
+
+  .card-link:hover .card-accent-line {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .card-date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
   }
 
   .card-title {
@@ -54,15 +97,41 @@ const { href, title, description } = Astro.props;
     overflow: hidden;
   }
 
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .card-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .card-link:hover .card-tag {
+    color: var(--accent);
+  }
+
   .card-read {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 500;
     color: var(--accent);
-    margin-top: auto;
     opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s ease;
+    transform: translateX(-6px);
+    transition: all 0.25s var(--ease-out-expo);
+    white-space: nowrap;
   }
 
   .card-link:hover .card-read {
