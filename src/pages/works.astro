@@ -1,38 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = await Astro.glob("../pages/posts/*.md");
+const projects = [
+  {
+    name: "homepage",
+    description: "このポートフォリオサイト。Astro + TypeScript で構築。",
+    repo: "https://github.com/tomyshogo/homepage",
+    tags: ["Astro", "TypeScript", "CSS"],
+  },
+  {
+    name: "life",
+    description: "毎朝の「おはよう」から始まる思考整理・ライフログ。",
+    repo: "https://github.com/tomyshogo/life",
+    tags: ["Markdown", "Life"],
+  },
+];
+
 const pageTitle = "tomy | works";
 ---
 
 <Layout title={pageTitle}>
   <section class="works-header reveal">
-    <p class="mono-label">Blog & Activity</p>
+    <p class="mono-label">Projects</p>
     <h1>Works</h1>
-    <p class="works-desc">ブログ記事や活動の記録</p>
+    <p class="works-desc">個人で取り組んでいるプロジェクト</p>
   </section>
 
-  <div class="works-controls reveal reveal-delay-1">
-    <a href="/tags/" class="tags-link glass">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L12 24"/>
-        <path d="M9.586 5.586A2 2 0 0 0 8.172 5H3a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h3.172a2 2 0 0 1 1.414.586L15 8"/>
-        <circle cx="6.5" cy="1.5" r=".5" fill="currentColor"/>
-      </svg>
-      All Tags
-    </a>
-    <div class="select-wrapper">
-      <select id="post-sort">
-        <option value="latest">New &rarr; Old</option>
-        <option value="oldest">Old &rarr; New</option>
-      </select>
-    </div>
+  <div class="project-grid reveal reveal-delay-1">
+    {projects.map((project) => (
+      <a href={project.repo} target="_blank" rel="noopener noreferrer" class="project-card glow-card">
+        <div class="project-header">
+          <h3 class="project-name">{project.name}</h3>
+          <svg class="external-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7" />
+            <path d="M7 7h10v10" />
+          </svg>
+        </div>
+        <p class="project-desc">{project.description}</p>
+        <div class="project-tags">
+          {project.tags.map((tag) => (
+            <span class="project-tag">{tag}</span>
+          ))}
+        </div>
+      </a>
+    ))}
   </div>
-
-  <ul class="post-grid reveal reveal-delay-2" id="post-list">
-    {allPosts.reverse().map((post) => <BlogPost post={post} />)}
-  </ul>
 </Layout>
 
 <style>
@@ -48,35 +60,75 @@ const pageTitle = "tomy | works";
     color: var(--text-secondary);
   }
 
-  .works-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1.5rem 0;
-  }
-
-  .tags-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-  }
-
-  .tags-link:hover {
-    color: var(--accent);
-  }
-
-  .post-grid {
+  .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.25rem;
-    list-style: none;
-    padding: 0;
+    margin-top: 2rem;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .project-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: color 0.15s ease;
+  }
+
+  .external-icon {
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translate(-2px, 2px);
+    transition: all 0.2s ease;
+  }
+
+  .project-card:hover .project-name {
+    color: var(--accent);
+  }
+
+  .project-card:hover .external-icon {
+    opacity: 1;
+    color: var(--accent);
+    transform: translate(0, 0);
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.3rem;
+    color: var(--text-secondary);
   }
 
   @media (max-width: 768px) {
@@ -84,21 +136,8 @@ const pageTitle = "tomy | works";
       padding: 2rem 0 0.5rem;
     }
 
-    .post-grid {
+    .project-grid {
       grid-template-columns: 1fr;
     }
   }
 </style>
-
-<script>
-  const postSortSelect = document.getElementById("post-sort") as HTMLSelectElement;
-  const postList = document.getElementById("post-list");
-
-  postSortSelect?.addEventListener("change", () => {
-    if (!postList) return;
-    const items = Array.from(postList.children);
-    items.reverse();
-    postList.innerHTML = "";
-    items.forEach((item) => postList.appendChild(item));
-  });
-</script>
