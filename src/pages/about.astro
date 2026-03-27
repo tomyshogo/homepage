@@ -61,31 +61,22 @@ const skills = [
   },
 ];
 
-const levelColor = (level: string) => {
+const levelStyle = (level: string) => {
   switch (level) {
-    case "Advanced": return "#6366f1";
-    case "Intermediate": return "#3b82f6";
-    case "Beginner": return "#22c55e";
-    default: return "#94a3b8";
-  }
-};
-
-const levelBg = (level: string) => {
-  switch (level) {
-    case "Advanced": return "rgba(99, 102, 241, 0.08)";
-    case "Intermediate": return "rgba(59, 130, 246, 0.08)";
-    case "Beginner": return "rgba(34, 197, 94, 0.08)";
-    default: return "rgba(148, 163, 184, 0.08)";
+    case "Advanced": return "level-advanced";
+    case "Intermediate": return "level-intermediate";
+    case "Beginner": return "level-beginner";
+    default: return "";
   }
 };
 ---
 
 <Layout title={pageTitle}>
-  <!-- Profile Section -->
-  <section class="profile-section">
-    <div class="profile-bg"></div>
-    <div class="profile-layout reveal">
+  <!-- Profile - Notion-style block -->
+  <section class="profile reveal">
+    <div class="profile-layout">
       <div class="profile-image-wrap">
+        <div class="image-glow"></div>
         <Image
           src={selfie}
           alt="冨谷 彰吾"
@@ -95,21 +86,17 @@ const levelBg = (level: string) => {
         />
       </div>
       <div class="profile-info">
-        <p class="mono-label">Profile</p>
+        <div class="section-label">Profile</div>
         <h1 class="profile-name">冨谷 彰吾</h1>
-        <p class="profile-tagline">Software Engineer / Freelance</p>
+        <p class="profile-role">Software Engineer / Freelance</p>
         <p class="profile-bio">
           千葉県在住。新卒から未経験でSES企業に入社し、現在はフリーランスエンジニアとして活動中。
         </p>
         <div class="profile-links">
           {sns.map((s) => (
-            <a href={s.url} target="_blank" rel="noopener noreferrer" class="sns-link">
-              <img src={s.icon} alt={s.name} width="18" height="18" />
-              <span>{s.name}</span>
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                <path d="M3.5 1.5H10.5V8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M10.5 1.5L1.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
+            <a href={s.url} target="_blank" rel="noopener noreferrer" class="sns-chip">
+              <img src={s.icon} alt={s.name} width="16" height="16" />
+              {s.name} ↗
             </a>
           ))}
         </div>
@@ -120,26 +107,26 @@ const levelBg = (level: string) => {
   <hr />
 
   <!-- GitHub Stats -->
-  <section class="github-section reveal reveal-delay-1">
-    <p class="mono-label">GitHub Activity</p>
+  <section class="reveal reveal-delay-1">
+    <div class="section-label">GitHub Activity</div>
     <h2>Stats & Contributions</h2>
-    <div class="stats-grid">
-      <div class="stat-card glass">
+    <div class="stats-bento">
+      <div class="stat-card notion-block">
         <img
-          src="https://github-readme-stats.vercel.app/api?username=tomyshogo&show_icons=true&theme=default&hide_border=true&title_color=6366f1&text_color=6b7280&icon_color=6366f1&bg_color=00000000"
+          src="https://github-readme-stats.vercel.app/api?username=tomyshogo&show_icons=true&theme=default&hide_border=true&title_color=7c3aed&text_color=6b6b6b&icon_color=7c3aed&bg_color=00000000"
           alt="GitHub Stats"
           loading="lazy"
         />
       </div>
-      <div class="stat-card glass">
+      <div class="stat-card notion-block">
         <img
-          src="https://github-readme-stats.vercel.app/api/top-langs/?username=tomyshogo&langs_count=5&hide=html,cmake&theme=default&hide_border=true&title_color=6366f1&text_color=6b7280&bg_color=00000000&layout=compact"
+          src="https://github-readme-stats.vercel.app/api/top-langs/?username=tomyshogo&langs_count=5&hide=html,cmake&theme=default&hide_border=true&title_color=7c3aed&text_color=6b6b6b&bg_color=00000000&layout=compact"
           alt="Top Languages"
           loading="lazy"
         />
       </div>
     </div>
-    <div class="stat-wide glass">
+    <div class="stat-wide notion-block">
       <img
         src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=tomyshogo&theme=default"
         alt="Profile Summary"
@@ -150,29 +137,29 @@ const levelBg = (level: string) => {
 
   <hr />
 
-  <!-- Skills Section -->
-  <section class="skills-section reveal reveal-delay-2">
-    <p class="mono-label">Tech Stack</p>
+  <!-- Skills - Bento with emoji headers -->
+  <section class="reveal reveal-delay-2">
+    <div class="section-label">Tech Stack</div>
     <h2>Skills & Expertise</h2>
 
     <div class="level-legend">
-      <span class="legend-item"><span class="legend-dot" style="background: #6366f1"></span>Advanced</span>
-      <span class="legend-item"><span class="legend-dot" style="background: #3b82f6"></span>Intermediate</span>
-      <span class="legend-item"><span class="legend-dot" style="background: #22c55e"></span>Beginner</span>
+      <span class="legend-item"><span class="legend-dot dot-advanced"></span> Advanced</span>
+      <span class="legend-item"><span class="legend-dot dot-intermediate"></span> Intermediate</span>
+      <span class="legend-item"><span class="legend-dot dot-beginner"></span> Beginner</span>
     </div>
 
-    <div class="skills-grid">
+    <div class="skills-bento">
       {skills.map((group) => (
-        <div class="skill-group glass">
+        <div class="skill-group glow-card">
           <h3 class="group-title">{group.category}</h3>
           <div class="skill-items">
             {group.items.map((skill) => (
               <div class="skill-item">
-                <div class="skill-icon-wrap">
-                  <img src={skill.icon} alt={skill.name} width="22" height="22" loading="lazy" />
+                <div class="skill-icon">
+                  <img src={skill.icon} alt={skill.name} width="20" height="20" loading="lazy" />
                 </div>
                 <span class="skill-name">{skill.name}</span>
-                <span class="skill-level" style={`color: ${levelColor(skill.level)}; background: ${levelBg(skill.level)}`}>
+                <span class={`skill-level ${levelStyle(skill.level)}`}>
                   {skill.level}
                 </span>
               </div>
@@ -184,17 +171,15 @@ const levelBg = (level: string) => {
   </section>
 
   <!-- Interests -->
-  <section class="interests-section reveal reveal-delay-3">
-    <p class="mono-label">Interests</p>
+  <section class="interests reveal reveal-delay-3">
+    <div class="section-label">Interests</div>
     <h2>What I'm Into</h2>
     <div class="interests-grid">
-      <div class="interest-card glass">
-        <span class="interest-emoji">🎮</span>
+      <div class="interest-item glow-card">
         <h3>Game Development</h3>
         <p>Unityを使ったゲーム開発</p>
       </div>
-      <div class="interest-card glass">
-        <span class="interest-emoji">📡</span>
+      <div class="interest-item glow-card">
         <h3>IoT Product</h3>
         <p>IoTプロダクトの設計と開発</p>
       </div>
@@ -204,118 +189,110 @@ const levelBg = (level: string) => {
 
 <style>
   /* Profile */
-  .profile-section {
-    position: relative;
+  .profile {
     padding: 3rem 0 1rem;
-    margin: -2rem -2rem 0;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
-  .profile-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-hero);
-    z-index: -1;
   }
 
   .profile-layout {
     display: flex;
-    gap: 3rem;
+    gap: 2.5rem;
     align-items: center;
-    max-width: var(--max-width);
-    margin: 0 auto;
   }
 
   .profile-image-wrap {
+    position: relative;
     flex-shrink: 0;
   }
 
-  .profile-img {
+  .profile-image-wrap .image-glow {
+    position: absolute;
     width: 180px;
     height: 180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(16px);
+  }
+
+  .profile-img {
+    position: relative;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #ffffff;
-    box-shadow: var(--shadow-lg);
-    transition: transform 0.4s ease;
+    border: 3px solid var(--bg-card);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease;
   }
 
   .profile-img:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   .profile-name {
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    margin: 0.5rem 0 0.25rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin: 0.4rem 0 0.2rem;
   }
 
-  .profile-tagline {
-    font-size: 0.9rem;
+  .profile-role {
+    font-size: 0.88rem;
     font-weight: 600;
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
     margin: 0;
   }
 
   .profile-bio {
-    margin-top: 1rem;
-    max-width: 420px;
-    line-height: 1.9;
+    margin-top: 0.75rem;
+    max-width: 400px;
   }
 
   .profile-links {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
   }
 
-  .sns-link {
+  .sns-chip {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.75rem;
-    font-size: 0.85rem;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.375rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--text-secondary);
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-sm);
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
   }
 
-  .sns-link:hover {
+  .sns-chip:hover {
     color: var(--accent);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
+    border-color: rgba(124, 58, 237, 0.2);
+    background: var(--accent-light);
   }
 
-  /* GitHub Stats */
-  .github-section {
-    padding: 1rem 0;
+  /* Section headers */
+  h2 {
+    margin: 0.5rem 0 1.25rem;
   }
 
-  .github-section h2 {
-    margin: 0.75rem 0 1.5rem;
-  }
-
-  .stats-grid {
+  /* GitHub Stats - Bento-like */
+  .stats-bento {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    margin-bottom: 1.25rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   .stat-card {
     padding: 1.25rem;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   .stat-card img {
@@ -325,9 +302,9 @@ const levelBg = (level: string) => {
 
   .stat-wide {
     padding: 1.25rem;
-    overflow: hidden;
     display: flex;
     justify-content: center;
+    overflow: hidden;
   }
 
   .stat-wide img {
@@ -335,40 +312,35 @@ const levelBg = (level: string) => {
     max-width: 800px;
   }
 
-  /* Skills */
-  .skills-section {
-    padding: 1rem 0;
-  }
-
-  .skills-section h2 {
-    margin: 0.75rem 0 1rem;
-  }
-
+  /* Skills - Bento grid */
   .level-legend {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.75rem;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .legend-item {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
   }
 
   .legend-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
   }
 
-  .skills-grid {
+  .dot-advanced { background: var(--accent); }
+  .dot-intermediate { background: #3b82f6; }
+  .dot-beginner { background: #22c55e; }
+
+  .skills-bento {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
   }
 
   .skill-group {
@@ -376,12 +348,9 @@ const levelBg = (level: string) => {
   }
 
   .group-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border-subtle);
@@ -390,34 +359,34 @@ const levelBg = (level: string) => {
   .skill-items {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
   .skill-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
-  .skill-icon-wrap {
-    width: 40px;
-    height: 40px;
+  .skill-icon {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--bg-secondary);
-    border-radius: 0.625rem;
+    border-radius: 0.5rem;
     flex-shrink: 0;
   }
 
-  .skill-icon-wrap img {
-    width: 22px;
-    height: 22px;
+  .skill-icon img {
+    width: 20px;
+    height: 20px;
     object-fit: contain;
   }
 
   .skill-name {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
     color: var(--text-primary);
     flex: 1;
@@ -427,56 +396,57 @@ const levelBg = (level: string) => {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.6rem;
-    border-radius: 1rem;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .level-advanced {
+    color: var(--accent);
+    background: rgba(124, 58, 237, 0.06);
+  }
+
+  .level-intermediate {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.06);
+  }
+
+  .level-beginner {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.06);
   }
 
   /* Interests */
-  .interests-section {
+  .interests {
     padding: 1rem 0 2rem;
-  }
-
-  .interests-section h2 {
-    margin: 0.75rem 0 1.5rem;
   }
 
   .interests-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
-  .interest-card {
-    padding: 2rem;
+  .interest-item {
+    padding: 1.75rem;
     text-align: center;
   }
 
-  .interest-emoji {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
-  .interest-card h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
+  .interest-item h3 {
+    font-size: 0.92rem;
+    font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
   }
 
-  .interest-card p {
-    font-size: 0.85rem;
+  .interest-item p {
+    font-size: 0.82rem;
     color: var(--text-muted);
     margin: 0;
   }
 
   /* Responsive */
   @media (max-width: 768px) {
-    .profile-section {
-      padding: 2rem;
-    }
-
     .profile-layout {
       flex-direction: column;
       text-align: center;
@@ -484,8 +454,8 @@ const levelBg = (level: string) => {
     }
 
     .profile-img {
-      width: 140px;
-      height: 140px;
+      width: 130px;
+      height: 130px;
     }
 
     .profile-bio {
@@ -496,11 +466,11 @@ const levelBg = (level: string) => {
       justify-content: center;
     }
 
-    .stats-grid {
+    .stats-bento {
       grid-template-columns: 1fr;
     }
 
-    .skills-grid {
+    .skills-bento {
       grid-template-columns: 1fr;
     }
 
@@ -510,7 +480,6 @@ const levelBg = (level: string) => {
 
     .level-legend {
       flex-wrap: wrap;
-      gap: 1rem;
     }
   }
 </style>

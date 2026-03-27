@@ -1,0 +1,176 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogPost from "../components/BlogPost.astro";
+
+const allPosts = await Astro.glob("../pages/posts/*.md");
+const pageTitle = "tomy | blog";
+---
+
+<Layout title={pageTitle}>
+  <section class="blog-header reveal">
+    <p class="mono-label">Blog</p>
+    <h1>Blog</h1>
+    <p class="blog-desc">日々の思考整理と記録</p>
+  </section>
+
+  {allPosts.length > 0 && (
+    <div class="blog-controls reveal reveal-delay-1">
+      <a href="/tags/" class="tags-link glass">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L12 24"/>
+          <path d="M9.586 5.586A2 2 0 0 0 8.172 5H3a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h3.172a2 2 0 0 1 1.414.586L15 8"/>
+          <circle cx="6.5" cy="1.5" r=".5" fill="currentColor"/>
+        </svg>
+        All Tags
+      </a>
+      <div class="select-wrapper">
+        <select id="post-sort">
+          <option value="latest">New &rarr; Old</option>
+          <option value="oldest">Old &rarr; New</option>
+        </select>
+      </div>
+    </div>
+  )}
+
+  {allPosts.length > 0 ? (
+    <ul class="post-grid reveal reveal-delay-2" id="post-list">
+      {allPosts.reverse().map((post) => <BlogPost post={post} />)}
+    </ul>
+  ) : (
+    <div class="empty-state reveal reveal-delay-1">
+      <div class="empty-visual">
+        <div class="empty-line"></div>
+        <div class="empty-line short"></div>
+        <div class="empty-line shorter"></div>
+      </div>
+      <p class="empty-title">Coming soon</p>
+      <p class="empty-desc">記事は準備中です。life リポからの同期をお楽しみに。</p>
+    </div>
+  )}
+</Layout>
+
+<style>
+  .blog-header {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .blog-header h1 {
+    margin: 0.5rem 0 0.5rem;
+  }
+
+  .blog-desc {
+    color: var(--text-secondary);
+  }
+
+  .blog-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+  }
+
+  .tags-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    transition: all 0.2s ease;
+  }
+
+  .tags-link:hover {
+    color: var(--accent);
+    border-color: var(--accent-glow);
+    background: var(--accent-dim);
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .empty-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+
+  .empty-line {
+    height: 3px;
+    width: 120px;
+    background: var(--border-subtle);
+    border-radius: 2px;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .empty-line.short {
+    width: 80px;
+    animation-delay: 0.15s;
+  }
+
+  .empty-line.shorter {
+    width: 50px;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background: var(--border-subtle); }
+    50% { background: var(--accent-glow); }
+  }
+
+  .empty-title {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .empty-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .blog-header {
+      padding: 2rem 0 1rem;
+    }
+
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const postSortSelect = document.getElementById("post-sort") as HTMLSelectElement;
+  const postList = document.getElementById("post-list");
+
+  postSortSelect?.addEventListener("change", () => {
+    if (!postList) return;
+    const items = Array.from(postList.children);
+    items.reverse();
+    postList.innerHTML = "";
+    items.forEach((item) => postList.appendChild(item));
+  });
+</script>

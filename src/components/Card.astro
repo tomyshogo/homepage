@@ -4,23 +4,31 @@ export interface Props {
   body?: string;
   href?: string;
   description?: string;
+  date?: string;
+  tags?: string[];
 }
 
-const { href, title, description } = Astro.props;
+const { href, title, description, date, tags } = Astro.props;
 ---
 
 <li class="post-card">
-  <a href={href} class="card-link">
-    <div class="card-accent"></div>
+  <a href={href} class="card-link glow-card">
+    {date && (
+      <span class="card-date">{date}</span>
+    )}
     <h3 class="card-title">{title}</h3>
     {description && <p class="card-desc">{description}</p>}
-    <span class="card-read">
-      Read more
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14"/>
-        <path d="m12 5 7 7-7 7"/>
-      </svg>
-    </span>
+    <div class="card-footer">
+      {tags && tags.length > 0 && (
+        <div class="card-tags">
+          {tags.map((tag: string) => (
+            <span class="card-tag">#{tag}</span>
+          ))}
+        </div>
+      )}
+      <span class="card-read">Read more</span>
+    </div>
+    <div class="card-accent-line"></div>
   </a>
 </li>
 
@@ -32,48 +40,46 @@ const { href, title, description } = Astro.props;
   .card-link {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 1.75rem;
-    border-radius: var(--radius);
+    gap: 0.5rem;
+    padding: 1.5rem;
     text-decoration: none;
-    transition: all 0.3s var(--ease-out-expo);
     height: 100%;
-    position: relative;
-    background: var(--gradient-card);
-    border: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-card);
     overflow: hidden;
+    position: relative;
   }
 
-  .card-accent {
+  .card-accent-line {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--gradient-accent);
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), rgba(124, 58, 237, 0.3));
+    opacity: 0;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.4s var(--ease-out-expo);
+    transition: all 0.35s var(--ease-out-expo);
   }
 
-  .card-link:hover .card-accent {
+  .card-link:hover .card-accent-line {
+    opacity: 1;
     transform: scaleX(1);
   }
 
-  .card-link:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: rgba(99, 102, 241, 0.15);
+  .card-date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
   }
 
   .card-title {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 600;
     color: var(--text-primary);
-    margin: 0;
     line-height: 1.4;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
   }
 
   .card-link:hover .card-title {
@@ -81,7 +87,7 @@ const { href, title, description } = Astro.props;
   }
 
   .card-desc {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     margin: 0;
     line-height: 1.6;
@@ -91,18 +97,41 @@ const { href, title, description } = Astro.props;
     overflow: hidden;
   }
 
-  .card-read {
-    display: inline-flex;
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .card-tag {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .card-link:hover .card-tag {
+    color: var(--accent);
+  }
+
+  .card-read {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     font-weight: 500;
     color: var(--accent);
-    margin-top: auto;
     opacity: 0;
-    transform: translateX(-8px);
-    transition: all 0.3s var(--ease-out-expo);
+    transform: translateX(-6px);
+    transition: all 0.25s var(--ease-out-expo);
+    white-space: nowrap;
   }
 
   .card-link:hover .card-read {
