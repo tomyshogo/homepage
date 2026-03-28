@@ -26,11 +26,16 @@ jobs:
         run: bash scripts/sync-life-articles.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LIFE_REPO_TOKEN: ${{ secrets.LIFE_REPO_TOKEN }}
 
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet src/pages/posts/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          if git diff --quiet HEAD -- src/pages/posts/ && [ -z "$(git ls-files --others --exclude-standard src/pages/posts/)" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
