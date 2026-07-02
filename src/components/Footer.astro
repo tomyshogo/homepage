@@ -3,8 +3,9 @@ const year = new Date().getFullYear();
 ---
 
 <footer>
+  <div class="footer-glow" aria-hidden="true"></div>
   <div class="footer-inner">
-    <p class="footer-copy">&copy; {year} tomy</p>
+    <p class="footer-copy">&copy; {year} tomy — Built with Astro</p>
     <a
       href="https://github.com/tomyshogo"
       target="_blank"
@@ -18,9 +19,20 @@ const year = new Date().getFullYear();
 
 <style>
   footer {
+    position: relative;
     border-top: 1px solid var(--border-subtle);
     padding: 2rem 0;
-    background: var(--bg-primary);
+    z-index: 1;
+  }
+
+  .footer-glow {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(600px, 80%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-glow-strong), transparent);
   }
 
   .footer-inner {
