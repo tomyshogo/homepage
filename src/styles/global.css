@@ -12,12 +12,12 @@ img {
   display: block;
 }
 
-/* Notion-style divider */
+/* Divider */
 hr {
   border: none;
   height: 1px;
-  background: var(--border-subtle);
-  margin: 3rem 0;
+  background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+  margin: 3.5rem 0;
 }
 
 /* Form elements */
@@ -27,7 +27,7 @@ select {
   font-family: var(--font-sans);
   font-size: 0.85rem;
   padding: 0.5rem 2rem 0.5rem 0.75rem;
-  background: var(--bg-card);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: 0.5rem;
   color: var(--text-primary);
@@ -37,7 +37,12 @@ select {
 
 select:hover {
   border-color: var(--border-medium);
+  background: var(--bg-tertiary);
+}
+
+select option {
   background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .select-wrapper {
@@ -58,42 +63,79 @@ select:hover {
   pointer-events: none;
 }
 
-/* Notion-style block/card */
+/* Simple block/card */
 .notion-block {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   box-shadow: var(--shadow-card);
-  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
 }
 
 .notion-block:hover {
   box-shadow: var(--shadow-card-hover);
-  border-color: rgba(124, 58, 237, 0.12);
+  border-color: var(--accent-glow);
 }
 
-/* Raycast-style glow card */
+/* Glow card with cursor-following spotlight (--mx / --my set by JS) */
 .glow-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   position: relative;
-  transition: all 0.25s ease;
+  overflow: hidden;
+  transition:
+    transform 0.3s var(--ease-out-expo),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* Spotlight fill that follows the cursor */
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    280px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(167, 139, 250, 0.1),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+/* Gradient border sheen */
 .glow-card::before {
   content: "";
   position: absolute;
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, transparent 40%, rgba(124, 58, 237, 0.15), transparent 60%);
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.4),
+    rgba(34, 211, 238, 0.2) 50%,
+    rgba(244, 114, 182, 0.3)
+  );
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: xor;
   -webkit-mask-composite: xor;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .glow-card:hover::before {
@@ -102,38 +144,60 @@ select:hover {
 
 .glow-card:hover {
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-/* Section label - Notion emoji style */
+.glow-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Section label */
 .section-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   margin-bottom: 0.5rem;
 }
 
-/* Mono label with Raycast accent */
+.section-label::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+/* Mono label */
 .mono-label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--accent);
   font-weight: 600;
 }
 
-/* Inline code - Notion-style */
+/* Inline code */
 .inline-code {
   font-family: var(--font-mono);
   font-size: 0.85em;
-  background: rgba(135, 131, 120, 0.1);
-  color: #eb5757;
+  background: rgba(167, 139, 250, 0.12);
+  color: var(--accent-hover);
   padding: 0.15em 0.4em;
   border-radius: 0.25em;
+}
+
+/* Glass surface */
+.glass {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
