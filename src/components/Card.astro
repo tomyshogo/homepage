@@ -11,24 +11,35 @@ export interface Props {
 const { href, title, description, date, tags } = Astro.props;
 ---
 
-<li class="post-card">
+<li class="post-card reveal">
   <a href={href} class="card-link glow-card">
-    {date && (
-      <span class="card-date">{date}</span>
-    )}
+    <div class="card-head">
+      {date && <time class="card-date">{date}</time>}
+      <span class="card-corner" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </span>
+    </div>
+
     <h3 class="card-title">{title}</h3>
     {description && <p class="card-desc">{description}</p>}
+
     <div class="card-footer">
       {tags && tags.length > 0 && (
         <div class="card-tags">
-          {tags.map((tag: string) => (
+          {tags.slice(0, 3).map((tag: string) => (
             <span class="card-tag">#{tag}</span>
           ))}
         </div>
       )}
-      <span class="card-read">Read more</span>
+      <span class="card-read">Read<span class="read-arrow">→</span></span>
     </div>
-    <div class="card-accent-line"></div>
+
+    <span class="card-underline" aria-hidden="true"></span>
   </a>
 </li>
 
@@ -40,102 +51,130 @@ const { href, title, description, date, tags } = Astro.props;
   .card-link {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.55rem;
     padding: 1.5rem;
-    text-decoration: none;
     height: 100%;
-    overflow: hidden;
-    position: relative;
+    text-decoration: none;
   }
 
-  .card-accent-line {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: all 0.35s var(--ease-out-expo);
-  }
-
-  .card-link:hover .card-accent-line {
-    opacity: 1;
-    transform: scaleX(1);
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .card-date {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     font-weight: 500;
-    color: var(--text-muted);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    transition: color 0.3s ease;
+  }
+
+  .card-link:hover .card-date { color: var(--accent); }
+
+  .card-corner {
+    color: var(--text-faint);
+    opacity: 0;
+    transform: translate(-5px, 5px);
+    transition: all 0.4s var(--ease-out-expo);
+  }
+
+  .card-link:hover .card-corner {
+    opacity: 1;
+    color: var(--accent);
+    transform: none;
   }
 
   .card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.45;
+    letter-spacing: -0.015em;
     color: var(--text-primary);
-    line-height: 1.4;
-    transition: color 0.15s ease;
+    transition: color 0.3s ease;
   }
 
-  .card-link:hover .card-title {
-    color: var(--accent);
-  }
+  .card-link:hover .card-title { color: var(--accent-hover); }
 
   .card-desc {
     font-size: 0.82rem;
+    line-height: 1.65;
     color: var(--text-muted);
-    margin: 0;
-    line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
   .card-footer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
     margin-top: auto;
-    padding-top: 0.5rem;
+    padding-top: 1rem;
   }
 
   .card-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
+    gap: 0.4rem;
+    min-width: 0;
   }
 
   .card-tag {
     font-family: var(--font-mono);
-    font-size: 0.62rem;
+    font-size: 0.63rem;
     font-weight: 500;
-    color: var(--text-muted);
-    transition: color 0.2s ease;
+    color: var(--text-faint);
+    transition: color 0.3s ease;
   }
 
-  .card-link:hover .card-tag {
-    color: var(--accent);
-  }
+  .card-link:hover .card-tag { color: var(--text-muted); }
 
   .card-read {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     font-family: var(--font-mono);
     font-size: 0.68rem;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--accent);
-    opacity: 0;
-    transform: translateX(-6px);
-    transition: all 0.25s var(--ease-out-expo);
     white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.4s var(--ease-out-expo);
   }
 
   .card-link:hover .card-read {
     opacity: 1;
-    transform: translateX(0);
+    transform: none;
   }
+
+  .read-arrow {
+    transition: transform 0.4s var(--ease-spring);
+  }
+
+  .card-link:hover .read-arrow { transform: translateX(3px); }
+
+  /* Bottom accent sweep */
+  .card-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--gradient-brand);
+    background-size: 250% auto;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  .card-link:hover .card-underline { transform: scaleX(1); }
 </style>

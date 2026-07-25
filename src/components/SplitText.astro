@@ -1,0 +1,29 @@
+---
+export interface Props {
+  text: string;
+  /** Character index to start counting from, so multiple runs stagger continuously. */
+  offset?: number;
+  class?: string;
+}
+
+const { text, offset = 0, class: className } = Astro.props;
+const chars = [...text];
+---
+
+<span class:list={["split", className]} aria-label={text}>
+  {chars.map((char, i) => (
+    <span
+      class="split-char"
+      style={`--char-i: ${offset + i}`}
+      aria-hidden="true"
+    >
+      {char === " " ? " " : char}
+    </span>
+  ))}
+</span>
+
+<style>
+  .split {
+    display: inline-block;
+  }
+</style>

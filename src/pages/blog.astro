@@ -1,47 +1,68 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BlogPost from "../components/BlogPost.astro";
+import SplitText from "../components/SplitText.astro";
 
 const allPosts = await Astro.glob("../pages/posts/*.md");
+const sorted = [...allPosts].sort((a, b) =>
+  String(b.frontmatter.pubDate ?? "").localeCompare(String(a.frontmatter.pubDate ?? ""))
+);
+
+const tagCount = new Set(allPosts.flatMap((post) => post.frontmatter.tags ?? [])).size;
 const pageTitle = "tomy | blog";
 ---
 
 <Layout title={pageTitle}>
-  <section class="blog-header reveal">
-    <p class="mono-label">Blog</p>
-    <h1>Blog</h1>
-    <p class="blog-desc">日々の思考整理と記録</p>
+  <section class="page-head">
+    <span class="mono-label reveal">Blog</span>
+    <h1 class="reveal reveal-chars">
+      <SplitText text="Blog" />
+    </h1>
+    <p class="page-desc reveal reveal-delay-2">
+      日々の思考整理と記録。<span class="serif">life</span> リポジトリから同期しています。
+    </p>
+
+    {allPosts.length > 0 && (
+      <div class="head-stats reveal reveal-delay-3">
+        <span><strong data-count={allPosts.length}>0</strong> posts</span>
+        <span class="head-sep"></span>
+        <span><strong data-count={tagCount}>0</strong> tags</span>
+      </div>
+    )}
   </section>
 
   {allPosts.length > 0 && (
-    <div class="blog-controls reveal reveal-delay-1">
-      <a href="/tags/" class="tags-link glass">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L12 24"/>
-          <path d="M9.586 5.586A2 2 0 0 0 8.172 5H3a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h3.172a2 2 0 0 1 1.414.586L15 8"/>
-          <circle cx="6.5" cy="1.5" r=".5" fill="currentColor"/>
+    <div class="blog-controls reveal reveal-delay-3">
+      <a href="/tags/" class="tags-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+          <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
         </svg>
-        All Tags
+        Browse tags
+        <span class="btn-arrow">→</span>
       </a>
+
       <div class="select-wrapper">
-        <select id="post-sort">
-          <option value="latest">New &rarr; Old</option>
-          <option value="oldest">Old &rarr; New</option>
+        <select id="post-sort" aria-label="Sort posts">
+          <option value="latest">New → Old</option>
+          <option value="oldest">Old → New</option>
         </select>
       </div>
     </div>
   )}
 
   {allPosts.length > 0 ? (
-    <ul class="post-grid reveal reveal-delay-2" id="post-list">
-      {allPosts.reverse().map((post) => <BlogPost post={post} />)}
+    <ul class="post-grid" id="post-list" data-stagger="0.08">
+      {sorted.map((post) => <BlogPost post={post} />)}
     </ul>
   ) : (
-    <div class="empty-state reveal reveal-delay-1">
-      <div class="empty-visual">
-        <div class="empty-line"></div>
-        <div class="empty-line short"></div>
-        <div class="empty-line shorter"></div>
+    <div class="empty-state reveal">
+      <div class="empty-visual" aria-hidden="true">
+        <span class="empty-line"></span>
+        <span class="empty-line short"></span>
+        <span class="empty-line shorter"></span>
       </div>
       <p class="empty-title">Coming soon</p>
       <p class="empty-desc">記事は準備中です。life リポからの同期をお楽しみに。</p>
@@ -50,23 +71,35 @@ const pageTitle = "tomy | blog";
 </Layout>
 
 <style>
-  .blog-header {
-    padding: 3rem 0 1.5rem;
+  .head-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
-  .blog-header h1 {
-    margin: 0.5rem 0 0.5rem;
+  .head-stats strong {
+    color: var(--accent);
+    font-weight: 600;
   }
 
-  .blog-desc {
-    color: var(--text-secondary);
+  .head-sep {
+    width: 1px;
+    height: 12px;
+    background: var(--border-medium);
   }
 
   .blog-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1.5rem 0;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .tags-link {
@@ -74,34 +107,39 @@ const pageTitle = "tomy | blog";
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 500;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     color: var(--text-secondary);
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
-    transition: all 0.2s ease;
+    transition: all 0.3s var(--ease-smooth);
   }
 
   .tags-link:hover {
     color: var(--accent);
-    border-color: var(--accent-glow);
+    border-color: var(--accent-glow-strong);
     background: var(--accent-dim);
   }
 
+  .tags-link:hover .btn-arrow { transform: translateX(4px); }
+
   .post-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.1rem;
     list-style: none;
     padding: 0;
   }
 
+  /* Empty state */
   .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding: 5rem 2rem;
     text-align: center;
   }
@@ -109,28 +147,22 @@ const pageTitle = "tomy | blog";
   .empty-visual {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 2rem;
+    gap: 0.65rem;
     align-items: center;
+    margin-bottom: 2rem;
   }
 
   .empty-line {
+    display: block;
     height: 3px;
-    width: 120px;
-    background: var(--border-subtle);
+    width: 130px;
     border-radius: 2px;
-    animation: shimmer 2s ease-in-out infinite;
+    background: var(--border-subtle);
+    animation: shimmer 2.2s ease-in-out infinite;
   }
 
-  .empty-line.short {
-    width: 80px;
-    animation-delay: 0.15s;
-  }
-
-  .empty-line.shorter {
-    width: 50px;
-    animation-delay: 0.3s;
-  }
+  .empty-line.short { width: 85px; animation-delay: 0.18s; }
+  .empty-line.shorter { width: 52px; animation-delay: 0.36s; }
 
   @keyframes shimmer {
     0%, 100% { background: var(--border-subtle); }
@@ -142,35 +174,50 @@ const pageTitle = "tomy | blog";
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.01em;
   }
 
   .empty-desc {
+    margin-top: 0.25rem;
     font-size: 0.82rem;
     color: var(--text-muted);
   }
 
-  @media (max-width: 768px) {
-    .blog-header {
-      padding: 2rem 0 1rem;
+  @media (max-width: 640px) {
+    .blog-controls {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
     }
 
-    .post-grid {
-      grid-template-columns: 1fr;
-    }
+    .tags-link { justify-content: center; }
+
+    .post-grid { grid-template-columns: 1fr; }
   }
 </style>
 
 <script>
-  const postSortSelect = document.getElementById("post-sort") as HTMLSelectElement;
-  const postList = document.getElementById("post-list");
+  function initSort() {
+    const select = document.getElementById("post-sort") as HTMLSelectElement | null;
+    const list = document.getElementById("post-list");
+    if (!select || !list) return;
 
-  postSortSelect?.addEventListener("change", () => {
-    if (!postList) return;
-    const items = Array.from(postList.children);
-    items.reverse();
-    postList.innerHTML = "";
-    items.forEach((item) => postList.appendChild(item));
-  });
+    select.addEventListener("change", () => {
+      const items = Array.from(list.children) as HTMLElement[];
+      items.reverse();
+
+      // Fade out, reorder, fade back in so the change reads as a transition.
+      list.style.transition = "opacity 0.2s ease";
+      list.style.opacity = "0";
+
+      window.setTimeout(() => {
+        items.forEach((item, i) => {
+          item.style.setProperty("--reveal-delay", `${i * 0.05}s`);
+          list.appendChild(item);
+        });
+        list.style.opacity = "1";
+      }, 200);
+    });
+  }
+
+  document.addEventListener("astro:page-load", initSort);
 </script>

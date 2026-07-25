@@ -24,70 +24,80 @@ const { posts } = Astro.props;
 ---
 
 <Layout title={`tomy | #${tag}`}>
-  <section class="tag-header reveal">
-    <a href="/tags/" class="back-link">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m12 19-7-7 7-7"/>
-        <path d="M19 12H5"/>
+  <section class="page-head">
+    <a href="/tags/" class="back-link reveal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7" />
+        <path d="M19 12H5" />
       </svg>
-      All Tags
+      <span>All Tags</span>
     </a>
-    <p class="mono-label">Tag</p>
-    <h1><span class="tag-hash">#</span>{tag}</h1>
-    <p class="tag-count">{posts.length} post{posts.length > 1 ? "s" : ""}</p>
+
+    <span class="mono-label reveal reveal-delay-1">Tag</span>
+    <h1 class="reveal reveal-delay-1"><span class="tag-hash">#</span>{tag}</h1>
+    <p class="tag-count reveal reveal-delay-2">
+      <strong data-count={posts.length}>0</strong> post{posts.length > 1 ? "s" : ""}
+    </p>
   </section>
 
-  <ul class="post-grid reveal reveal-delay-1">
+  <ul class="post-grid" data-stagger="0.08">
     {posts.map((post: any) => post.url && <BlogPost post={post} />)}
   </ul>
 </Layout>
 
 <style>
-  .tag-header {
-    padding: 3rem 0 1.5rem;
-  }
-
   .back-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
     margin-bottom: 2rem;
-    transition: color 0.3s ease;
   }
 
-  .back-link:hover {
-    color: var(--accent);
+  .back-link:hover { color: var(--accent); }
+
+  .back-link svg {
+    transition: transform 0.35s var(--ease-spring);
   }
 
-  .tag-header h1 {
-    margin: 0.5rem 0;
-  }
+  .back-link:hover svg { transform: translateX(-4px); }
 
   .tag-hash {
-    color: var(--accent);
-    opacity: 0.6;
+    background: var(--gradient-brand);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-flow 7s linear infinite;
   }
 
   .tag-count {
+    margin-top: 0.6rem;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
+  }
+
+  .tag-count strong {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   .post-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.1rem;
     list-style: none;
     padding: 0;
   }
 
-  @media (max-width: 768px) {
-    .post-grid {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 640px) {
+    .post-grid { grid-template-columns: 1fr; }
   }
 </style>

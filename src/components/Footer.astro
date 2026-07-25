@@ -1,36 +1,63 @@
 ---
 const year = new Date().getFullYear();
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about/" },
+  { label: "Works", href: "/works/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Tags", href: "/tags/" },
+];
 ---
 
 <footer>
-  <div class="footer-glow" aria-hidden="true"></div>
+  <span class="footer-hairline" aria-hidden="true"></span>
+
   <div class="footer-inner">
-    <p class="footer-copy">&copy; {year} tomy — Built with Astro</p>
-    <a
-      href="https://github.com/tomyshogo"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="footer-link"
-    >
-      GitHub ↗
-    </a>
+    <div class="footer-top">
+      <a href="/" class="footer-mark">
+        tomy<span class="footer-dot">.</span>
+      </a>
+
+      <nav class="footer-nav" aria-label="Footer">
+        {links.map((link) => (
+          <a href={link.href} class="footer-nav-link">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+
+    <!-- Oversized wordmark -->
+    <div class="wordmark" aria-hidden="true">
+      <span class="wordmark-text">SOFTWARE ENGINEER</span>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; {year} tomy — Built with Astro</p>
+      <a
+        href="https://github.com/tomyshogo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+      >
+        GitHub <span class="btn-arrow">↗</span>
+      </a>
+    </div>
   </div>
 </footer>
 
 <style>
   footer {
     position: relative;
-    border-top: 1px solid var(--border-subtle);
-    padding: 2rem 0;
     z-index: 1;
+    padding: 3rem 0 2rem;
+    overflow: hidden;
   }
 
-  .footer-glow {
+  .footer-hairline {
     position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(600px, 80%);
+    top: 0;
+    left: 0;
+    right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--accent-glow-strong), transparent);
   }
@@ -39,32 +66,131 @@ const year = new Date().getFullYear();
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 2rem;
+  }
+
+  .footer-top {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
   }
 
-  .footer-copy {
-    font-size: 0.8rem;
-    color: var(--text-muted);
+  .footer-mark {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
   }
 
-  .footer-link {
+  .footer-dot {
+    background: var(--gradient-brand);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-flow 7s linear infinite;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .footer-nav-link {
+    position: relative;
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--text-muted);
-    transition: color 0.15s ease;
   }
 
-  .footer-link:hover {
-    color: var(--accent);
+  .footer-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s var(--ease-out-expo);
   }
+
+  .footer-nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Oversized ghost wordmark */
+  .wordmark {
+    margin: 2.5rem 0 1.5rem;
+    text-align: center;
+    user-select: none;
+    overflow: hidden;
+  }
+
+  .wordmark-text {
+    display: block;
+    font-size: clamp(1.1rem, 6.4vw, 4.25rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: transparent;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.09),
+      rgba(255, 255, 255, 0.012)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    white-space: nowrap;
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .footer-link:hover { color: var(--accent); }
+  .footer-link:hover .btn-arrow { transform: translateX(3px); }
 
   @media (max-width: 640px) {
-    .footer-inner {
+    .footer-top {
       flex-direction: column;
-      gap: 0.5rem;
-      text-align: center;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .footer-nav { gap: 1rem; }
+
+    .wordmark { margin: 2rem 0 1.25rem; }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
     }
   }
 </style>

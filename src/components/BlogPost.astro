@@ -1,5 +1,6 @@
 ---
 import Card from "./Card.astro";
+import { formatDate } from "../utils/date";
 
 const { post } = Astro.props;
 ---
@@ -8,6 +9,6 @@ const { post } = Astro.props;
   title={post.frontmatter.title}
   href={post.url}
   description={post.frontmatter.description}
-  date={post.frontmatter.pubDate?.toString().slice(0, 10)}
+  date={formatDate(post.frontmatter.pubDate)}
   tags={post.frontmatter.tags}
 />
